@@ -168,7 +168,7 @@ strong {
   text-underline-offset: 3px;
 }
 
-/* --- Hero: wordmark, tagline on a hairline that turns up at its end, and one figure in a circle ----------- */
+/* --- Hero: wordmark, and a tagline on a hairline that turns up at its end ---------------------------------- */
 
 .page {
   max-width: 1400px;
@@ -205,9 +205,10 @@ strong {
   line-height: 0.92;
 }
 
-/* The pun: "In" in the light weight. */
-.wordmark span {
-  font-weight: 300;
+/* The pun, and the reason it reads: in Outfit a capital I and a lowercase l are the same bar, so "In" takes the
+   accent colour wherever the name is written. */
+.in {
+  color: var(--accent);
 }
 
 .tagline {
