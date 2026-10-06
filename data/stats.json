@@ -1,0 +1,3570 @@
+{
+  "builtAt": "2026-10-06T11:09:42+00:00",
+  "referenceDate": "2026-10-06",
+  "gtfsFetchedAt": "2026-10-06T09:42:25+00:00",
+  "servicePeriod": [
+    "2026-10-01",
+    "2026-12-12"
+  ],
+  "center": "Alexanderplatz",
+  "railStations": 634,
+  "stationsByMode": {
+    "ubahn": 171,
+    "sbahn": 133,
+    "tram": 390,
+    "regional": 18,
+    "bus": 2777,
+    "ferry": 12
+  },
+  "linesByMode": {
+    "ubahn": 9,
+    "sbahn": 16,
+    "tram": 30,
+    "regional": 22,
+    "bus": 388,
+    "ferry": 5
+  },
+  "tripsPerMode": {
+    "bus": 37388,
+    "regional": 1264,
+    "sbahn": 3420,
+    "tram": 8216,
+    "ubahn": 3929,
+    "ferry": 324
+  },
+  "within15": 10,
+  "within30": 55,
+  "within30All": 55,
+  "farthestStation": "Wendenschloß",
+  "farthestMinutes": 67,
+  "lines": [
+    {
+      "name": "U1",
+      "mode": "ubahn",
+      "color": "#7DAD4C",
+      "text": "#FFFFFF",
+      "stations": 13,
+      "headway": 10.0
+    },
+    {
+      "name": "U2",
+      "mode": "ubahn",
+      "color": "#DA421E",
+      "text": "#FFFFFF",
+      "stations": 29,
+      "headway": 4.4
+    },
+    {
+      "name": "U3",
+      "mode": "ubahn",
+      "color": "#16683D",
+      "text": "#FFFFFF",
+      "stations": 24,
+      "headway": 5.0
+    },
+    {
+      "name": "U4",
+      "mode": "ubahn",
+      "color": "#F0D722",
+      "text": "#000000",
+      "stations": 5,
+      "headway": 6.7
+    },
+    {
+      "name": "U5",
+      "mode": "ubahn",
+      "color": "#7E5330",
+      "text": "#FFFFFF",
+      "stations": 26,
+      "headway": 4.9
+    },
+    {
+      "name": "U6",
+      "mode": "ubahn",
+      "color": "#8C6DAB",
+      "text": "#FFFFFF",
+      "stations": 24,
+      "headway": 4.6
+    },
+    {
+      "name": "U7",
+      "mode": "ubahn",
+      "color": "#009BD5",
+      "text": "#FFFFFF",
+      "stations": 40,
+      "headway": 5.0
+    },
+    {
+      "name": "U8",
+      "mode": "ubahn",
+      "color": "#224F86",
+      "text": "#FFFFFF",
+      "stations": 24,
+      "headway": 5.0
+    },
+    {
+      "name": "U9",
+      "mode": "ubahn",
+      "color": "#F3791D",
+      "text": "#000000",
+      "stations": 18,
+      "headway": 4.3
+    },
+    {
+      "name": "S1",
+      "mode": "sbahn",
+      "color": "#DA6BA2",
+      "text": "#FFFFFF",
+      "stations": 30,
+      "headway": 9.7
+    },
+    {
+      "name": "S2",
+      "mode": "sbahn",
+      "color": "#007734",
+      "text": "#FFFFFF",
+      "stations": 22,
+      "headway": 10.0
+    },
+    {
+      "name": "S3",
+      "mode": "sbahn",
+      "color": "#0066AD",
+      "text": "#FFFFFF",
+      "stations": 30,
+      "headway": 10.0
+    },
+    {
+      "name": "S5",
+      "mode": "sbahn",
+      "color": "#EB7405",
+      "text": "#FFFFFF",
+      "stations": 22,
+      "headway": 10.0
+    },
+    {
+      "name": "S7",
+      "mode": "sbahn",
+      "color": "#816DA6",
+      "text": "#FFFFFF",
+      "stations": 26,
+      "headway": 10.0
+    },
+    {
+      "name": "S8",
+      "mode": "sbahn",
+      "color": "#66AA22",
+      "text": "#FFFFFF",
+      "stations": 18,
+      "headway": 20.0
+    },
+    {
+      "name": "S9",
+      "mode": "sbahn",
+      "color": "#992746",
+      "text": "#FFFFFF",
+      "stations": 30,
+      "headway": 20.0
+    },
+    {
+      "name": "S15",
+      "mode": "sbahn",
+      "color": "#DA6BA2",
+      "text": "#FFFFFF",
+      "stations": 3,
+      "headway": 10.0
+    },
+    {
+      "name": "S25",
+      "mode": "sbahn",
+      "color": "#007734",
+      "text": "#FFFFFF",
+      "stations": 25,
+      "headway": 20.0
+    },
+    {
+      "name": "S26",
+      "mode": "sbahn",
+      "color": "#007734",
+      "text": "#FFFFFF",
+      "stations": 24,
+      "headway": 20.0
+    },
+    {
+      "name": "S41",
+      "mode": "sbahn",
+      "color": "#AD5937",
+      "text": "#FFFFFF",
+      "stations": 35,
+      "headway": 5.3
+    },
+    {
+      "name": "S42",
+      "mode": "sbahn",
+      "color": "#CB6418",
+      "text": "#FFFFFF",
+      "stations": 34,
+      "headway": 5.3
+    },
+    {
+      "name": "S46",
+      "mode": "sbahn",
+      "color": "#CD9C53",
+      "text": "#FFFFFF",
+      "stations": 20,
+      "headway": 19.7
+    },
+    {
+      "name": "S47",
+      "mode": "sbahn",
+      "color": "#CD9C53",
+      "text": "#FFFFFF",
+      "stations": 9,
+      "headway": 20.0
+    },
+    {
+      "name": "S75",
+      "mode": "sbahn",
+      "color": "#816DA6",
+      "text": "#FFFFFF",
+      "stations": 10,
+      "headway": 10.0
+    },
+    {
+      "name": "S85",
+      "mode": "sbahn",
+      "color": "#66AA22",
+      "text": "#FFFFFF",
+      "stations": 25,
+      "headway": 20.0
+    },
+    {
+      "name": "12",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 15,
+      "headway": 10.0
+    },
+    {
+      "name": "16",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 30,
+      "headway": 10.2
+    },
+    {
+      "name": "18",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 49,
+      "headway": 11.8
+    },
+    {
+      "name": "21",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 44,
+      "headway": 20.0
+    },
+    {
+      "name": "27",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 70,
+      "headway": 20.0
+    },
+    {
+      "name": "50",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 44,
+      "headway": 9.8
+    },
+    {
+      "name": "60",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 63,
+      "headway": 19.7
+    },
+    {
+      "name": "61",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 51,
+      "headway": 20.0
+    },
+    {
+      "name": "62",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 32,
+      "headway": 10.0
+    },
+    {
+      "name": "63",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 20,
+      "headway": 10.0
+    },
+    {
+      "name": "67",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 32,
+      "headway": 10.4
+    },
+    {
+      "name": "68",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 31,
+      "headway": 10.0
+    },
+    {
+      "name": "87",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 1,
+      "headway": 14.2
+    },
+    {
+      "name": "88",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 2,
+      "headway": 17.0
+    },
+    {
+      "name": "M1",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 36,
+      "headway": 14.9
+    },
+    {
+      "name": "M2",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 32,
+      "headway": 20.0
+    },
+    {
+      "name": "M4",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 40,
+      "headway": 3.8
+    },
+    {
+      "name": "M5",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 70,
+      "headway": 10.0
+    },
+    {
+      "name": "M6",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 48,
+      "headway": 9.9
+    },
+    {
+      "name": "M8",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 57,
+      "headway": 9.9
+    },
+    {
+      "name": "M10",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 47,
+      "headway": 5.0
+    },
+    {
+      "name": "M13",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 48,
+      "headway": 10.0
+    },
+    {
+      "name": "M17",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF",
+      "stations": 44,
+      "headway": 5.0
+    },
+    {
+      "name": "FEX",
+      "mode": "regional",
+      "color": "#79122F",
+      "text": "#FFFFFF",
+      "stations": 3,
+      "headway": 10.0
+    },
+    {
+      "name": "RE1",
+      "mode": "regional",
+      "color": "#E2001A",
+      "text": "#FFFFFF",
+      "stations": 4,
+      "headway": 26.5
+    },
+    {
+      "name": "RE2",
+      "mode": "regional",
+      "color": "#FFD502",
+      "text": "#000000",
+      "stations": 6,
+      "headway": 60.0
+    },
+    {
+      "name": "RE3",
+      "mode": "regional",
+      "color": "#EB7405",
+      "text": "#FFFFFF",
+      "stations": 5,
+      "headway": 60.0
+    },
+    {
+      "name": "RE4",
+      "mode": "regional",
+      "color": "#992746",
+      "text": "#FFFFFF",
+      "stations": 6,
+      "headway": 60.0
+    },
+    {
+      "name": "RE7",
+      "mode": "regional",
+      "color": "#007734",
+      "text": "#FFFFFF",
+      "stations": 7,
+      "headway": 60.0
+    },
+    {
+      "name": "RE8",
+      "mode": "regional",
+      "color": "#816DA6",
+      "text": "#FFFFFF",
+      "stations": 6,
+      "headway": 60.0
+    },
+    {
+      "name": "RB10",
+      "mode": "regional",
+      "color": "#E2001A",
+      "text": "#FFFFFF",
+      "stations": 6,
+      "headway": 60.0
+    },
+    {
+      "name": "RB14",
+      "mode": "regional",
+      "color": "#A5027D",
+      "text": "#FFFFFF",
+      "stations": 2,
+      "headway": 60.0
+    },
+    {
+      "name": "RB21",
+      "mode": "regional",
+      "color": "#501689",
+      "text": "#FFFFFF",
+      "stations": 4,
+      "headway": 60.0
+    },
+    {
+      "name": "RB24",
+      "mode": "regional",
+      "color": "#DA6BA2",
+      "text": "#FFFFFF",
+      "stations": 4,
+      "headway": 60.0
+    },
+    {
+      "name": "RB25",
+      "mode": "regional",
+      "color": "#007CB0",
+      "text": "#FFFFFF",
+      "stations": 3,
+      "headway": 33.9
+    },
+    {
+      "name": "RB26",
+      "mode": "regional",
+      "color": "#009686",
+      "text": "#FFFFFF",
+      "stations": 3,
+      "headway": 60.0
+    },
+    {
+      "name": "RB27",
+      "mode": "regional",
+      "color": "#E2001A",
+      "text": "#FFFFFF",
+      "stations": 2,
+      "headway": 111.9
+    },
+    {
+      "name": "RB32",
+      "mode": "regional",
+      "color": "#697C8A",
+      "text": "#FFFFFF",
+      "stations": 3,
+      "headway": 60.0
+    },
+    {
+      "name": "RB37",
+      "mode": "regional",
+      "color": "#AD5937",
+      "text": "#FFFFFF",
+      "stations": 1,
+      "headway": 60.0
+    },
+    {
+      "name": "RE20",
+      "mode": "regional",
+      "color": "#E2001A",
+      "text": "#FFFFFF",
+      "stations": 3,
+      "headway": 60.0
+    },
+    {
+      "name": "F10",
+      "mode": "ferry",
+      "color": "#0080BA",
+      "text": "#FFFFFF",
+      "stations": 2,
+      "headway": 60.0
+    },
+    {
+      "name": "F11",
+      "mode": "ferry",
+      "color": "#0080BA",
+      "text": "#FFFFFF",
+      "stations": 2,
+      "headway": 15.9
+    },
+    {
+      "name": "F12",
+      "mode": "ferry",
+      "color": "#0080BA",
+      "text": "#FFFFFF",
+      "stations": 2,
+      "headway": 13.6
+    },
+    {
+      "name": "F21",
+      "mode": "ferry",
+      "color": "#0080BA",
+      "text": "#FFFFFF",
+      "stations": 2,
+      "headway": 45.9
+    },
+    {
+      "name": "F23",
+      "mode": "ferry",
+      "color": "#0080BA",
+      "text": "#FFFFFF",
+      "stations": 4,
+      "headway": 86.7
+    }
+  ],
+  "lineInfo": [
+    {
+      "name": "U1",
+      "mode": "ubahn",
+      "color": "#7DAD4C",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "U2",
+      "mode": "ubahn",
+      "color": "#DA421E",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "U3",
+      "mode": "ubahn",
+      "color": "#16683D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "U4",
+      "mode": "ubahn",
+      "color": "#F0D722",
+      "text": "#000000"
+    },
+    {
+      "name": "U5",
+      "mode": "ubahn",
+      "color": "#7E5330",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "U6",
+      "mode": "ubahn",
+      "color": "#8C6DAB",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "U7",
+      "mode": "ubahn",
+      "color": "#009BD5",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "U8",
+      "mode": "ubahn",
+      "color": "#224F86",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "U9",
+      "mode": "ubahn",
+      "color": "#F3791D",
+      "text": "#000000"
+    },
+    {
+      "name": "S1",
+      "mode": "sbahn",
+      "color": "#DA6BA2",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "S2",
+      "mode": "sbahn",
+      "color": "#007734",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "S3",
+      "mode": "sbahn",
+      "color": "#0066AD",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "S5",
+      "mode": "sbahn",
+      "color": "#EB7405",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "S7",
+      "mode": "sbahn",
+      "color": "#816DA6",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "S8",
+      "mode": "sbahn",
+      "color": "#66AA22",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "S9",
+      "mode": "sbahn",
+      "color": "#992746",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "S15",
+      "mode": "sbahn",
+      "color": "#DA6BA2",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "S25",
+      "mode": "sbahn",
+      "color": "#007734",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "S26",
+      "mode": "sbahn",
+      "color": "#007734",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "S41",
+      "mode": "sbahn",
+      "color": "#AD5937",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "S42",
+      "mode": "sbahn",
+      "color": "#CB6418",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "S46",
+      "mode": "sbahn",
+      "color": "#CD9C53",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "S47",
+      "mode": "sbahn",
+      "color": "#CD9C53",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "S75",
+      "mode": "sbahn",
+      "color": "#816DA6",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "S85",
+      "mode": "sbahn",
+      "color": "#66AA22",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "12",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "16",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "18",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "21",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "27",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "50",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "60",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "61",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "62",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "63",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "67",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "68",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "87",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "88",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "91",
+      "mode": "tram",
+      "color": "#E2001A",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "92",
+      "mode": "tram",
+      "color": "#003277",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "93",
+      "mode": "tram",
+      "color": "#EB7405",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "94",
+      "mode": "tram",
+      "color": "#7D868B",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "96",
+      "mode": "tram",
+      "color": "#009686",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "98",
+      "mode": "tram",
+      "color": "#0079CA",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "99",
+      "mode": "tram",
+      "color": "#59A614",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M1",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M2",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M4",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M5",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M6",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M8",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M10",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M13",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M17",
+      "mode": "tram",
+      "color": "#BE1414",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "FEX",
+      "mode": "regional",
+      "color": "#79122F",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RE1",
+      "mode": "regional",
+      "color": "#E2001A",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RE2",
+      "mode": "regional",
+      "color": "#FFD502",
+      "text": "#000000"
+    },
+    {
+      "name": "RE3",
+      "mode": "regional",
+      "color": "#EB7405",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RE4",
+      "mode": "regional",
+      "color": "#992746",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RE6",
+      "mode": "regional",
+      "color": "#DA6BA2",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RE7",
+      "mode": "regional",
+      "color": "#007734",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RE8",
+      "mode": "regional",
+      "color": "#816DA6",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RB10",
+      "mode": "regional",
+      "color": "#E2001A",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RB14",
+      "mode": "regional",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RB20",
+      "mode": "regional",
+      "color": "#007734",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RB21",
+      "mode": "regional",
+      "color": "#501689",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RB22",
+      "mode": "regional",
+      "color": "#009BD5",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RB24",
+      "mode": "regional",
+      "color": "#DA6BA2",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RB25",
+      "mode": "regional",
+      "color": "#007CB0",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RB26",
+      "mode": "regional",
+      "color": "#009686",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RB27",
+      "mode": "regional",
+      "color": "#E2001A",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RB32",
+      "mode": "regional",
+      "color": "#697C8A",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RB33",
+      "mode": "regional",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RB37",
+      "mode": "regional",
+      "color": "#AD5937",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RB55",
+      "mode": "regional",
+      "color": "#EB7405",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RE20",
+      "mode": "regional",
+      "color": "#E2001A",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "A",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "C",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "12",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "27",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M1",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M5",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M8",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N1",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N2",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N3",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N5",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N6",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N7",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N8",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N9",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "S7",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "T6",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "T9",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "U2",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "U5",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "U6",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "U8",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "X1",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "X7",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "100",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "101",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "106",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "107",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "108",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "109",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "110",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "112",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "114",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "115",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "118",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "120",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "122",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "123",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "124",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "125",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "128",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "130",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "131",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "133",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "134",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "135",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "136",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "137",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "139",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "140",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "142",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "143",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "147",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "150",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "154",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "155",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "156",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "158",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "160",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "161",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "162",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "163",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "164",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "165",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "166",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "168",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "169",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "170",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "171",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "172",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "175",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "179",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "181",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "184",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "186",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "187",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "188",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "190",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "191",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "192",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "194",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "195",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "197",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "200",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "204",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "215",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "218",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "220",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "221",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "222",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "234",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "237",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "240",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "245",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "246",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "247",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "248",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "249",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "250",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "255",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "256",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "259",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "260",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "263",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "265",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "269",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "271",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "275",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "277",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "282",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "283",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "284",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "285",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "291",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "294",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "296",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "300",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "309",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "310",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "316",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "318",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "320",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "322",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "324",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "326",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "327",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "334",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "337",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "338",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "339",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "347",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "349",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "350",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "353",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "358",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "363",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "365",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "369",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "371",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "372",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "377",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "380",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "390",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "395",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "396",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "398",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "399",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "418",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "420",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "421",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "422",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "423",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "424",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "426",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "427",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "428",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "429",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "437",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "580",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "600",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "601",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "602",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "603",
+      "mode": "bus",
+      "color": "#E69311",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "604",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "605",
+      "mode": "bus",
+      "color": "#AA5D0B",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "607",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "608",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "609",
+      "mode": "bus",
+      "color": "#826817",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "610",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "611",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "612",
+      "mode": "bus",
+      "color": "#691A1B",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "613",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "614",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "616",
+      "mode": "bus",
+      "color": "#003277",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "620",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "621",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "622",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "623",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "624",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "626",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "627",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "628",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "629",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "631",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "638",
+      "mode": "bus",
+      "color": "#694694",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "639",
+      "mode": "bus",
+      "color": "#9D88C0",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "643",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "646",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "650",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "651",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "652",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "653",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "654",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "655",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "656",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "662",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "662",
+      "mode": "bus",
+      "color": "#EA7C00",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "663",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "670",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "671",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "686",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "690",
+      "mode": "bus",
+      "color": "#455472",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "691",
+      "mode": "bus",
+      "color": "#EA7C00",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "692",
+      "mode": "bus",
+      "color": "#00BEE6",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "693",
+      "mode": "bus",
+      "color": "#DA6BA2",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "694",
+      "mode": "bus",
+      "color": "#7195A9",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "695",
+      "mode": "bus",
+      "color": "#A10338",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "696",
+      "mode": "bus",
+      "color": "#C40036",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "697",
+      "mode": "bus",
+      "color": "#6D0061",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "699",
+      "mode": "bus",
+      "color": "#C68900",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "701",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "702",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "703",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "704",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "705",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "708",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "709",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "710",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "711",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "713",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "715",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "720",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "721",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "721",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "723",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "731",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "732",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "733",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "733",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "734",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "735",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "736",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "737",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "738",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "741",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "742",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "743",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "744",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "751",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "792",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "793",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "794",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "797",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "806",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "807",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "808",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "809",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "810",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "811",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "812",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "814",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "816",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "822",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "824",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "825",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "825",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "867",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "868",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "869",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "870",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "871",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "872",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "878",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "882",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "887",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "890",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "891",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "892",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "893",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "893",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "894",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "895",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "896",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "897",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "898",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "899",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "900",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "901",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "903",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "906",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "907",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "908",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "909",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "918",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "931",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "932",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "933",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "935",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "938",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "940",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "941",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "942",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "943",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "944",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "945",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "948",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "949",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "950",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "951",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M11",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M17",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M19",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M21",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M27",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M29",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M32",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M36",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M37",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M41",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M43",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M44",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M45",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M46",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M48",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M49",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M76",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M77",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M82",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "M85",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N10",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N13",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N14",
+      "mode": "bus",
+      "color": "#F7A600",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N16",
+      "mode": "bus",
+      "color": "#0079CA",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N17",
+      "mode": "bus",
+      "color": "#59A614",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N18",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N20",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N22",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N23",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N24",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N25",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N26",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N30",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N33",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N34",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N35",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N36",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N39",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N40",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N42",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N43",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N50",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N52",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N53",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N56",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N58",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N60",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N61",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N62",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N63",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N64",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N65",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N68",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N69",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N70",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N77",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N7X",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N81",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N84",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N88",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N91",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N94",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N95",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N96",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "N97",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RE1",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RE7",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "X10",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "X11",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "X19",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "X21",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "X33",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "X34",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "X36",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "X37",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "X43",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "X49",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "X54",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "X69",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "X71",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "X76",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "X83",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "334R",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "BER2",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "R931",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "R933",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RB20",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RB22",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "RB24",
+      "mode": "bus",
+      "color": "#A5027D",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "F10",
+      "mode": "ferry",
+      "color": "#0080BA",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "F11",
+      "mode": "ferry",
+      "color": "#0080BA",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "F12",
+      "mode": "ferry",
+      "color": "#0080BA",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "F21",
+      "mode": "ferry",
+      "color": "#0080BA",
+      "text": "#FFFFFF"
+    },
+    {
+      "name": "F23",
+      "mode": "ferry",
+      "color": "#0080BA",
+      "text": "#FFFFFF"
+    }
+  ],
+  "frequent": [
+    {
+      "line": 48,
+      "headway": 3.2
+    },
+    {
+      "line": 50,
+      "headway": 3.3
+    },
+    {
+      "line": 8,
+      "headway": 4.0
+    },
+    {
+      "line": 1,
+      "headway": 4.0
+    },
+    {
+      "line": 5,
+      "headway": 4.3
+    },
+    {
+      "line": 4,
+      "headway": 4.6
+    },
+    {
+      "line": 51,
+      "headway": 4.8
+    },
+    {
+      "line": 12,
+      "headway": 5.0
+    },
+    {
+      "line": 9,
+      "headway": 5.0
+    },
+    {
+      "line": 20,
+      "headway": 5.0
+    }
+  ],
+  "busiest": [
+    {
+      "station": "S+U Alexanderplatz",
+      "departures": 2167
+    },
+    {
+      "station": "S+U Friedrichstr.",
+      "departures": 2110
+    },
+    {
+      "station": "S Ostkreuz",
+      "departures": 2011
+    },
+    {
+      "station": "S Landsberger Allee",
+      "departures": 1914
+    },
+    {
+      "station": "S+U Berlin Hauptbahnhof",
+      "departures": 1813
+    },
+    {
+      "station": "S+U Gesundbrunnen",
+      "departures": 1766
+    },
+    {
+      "station": "S+U Warschauer Str.",
+      "departures": 1764
+    },
+    {
+      "station": "S Schöneweide",
+      "departures": 1732
+    },
+    {
+      "station": "S+U Zoologischer Garten",
+      "departures": 1696
+    },
+    {
+      "station": "S+U Frankfurter Allee",
+      "departures": 1564
+    }
+  ],
+  "longest": [
+    {
+      "line": 14,
+      "minutes": 83,
+      "from": "S Wildau",
+      "to": "S Birkenwerder"
+    },
+    {
+      "line": 15,
+      "minutes": 79,
+      "from": "S Spandau",
+      "to": "Flughafen BER"
+    },
+    {
+      "line": 11,
+      "minutes": 74,
+      "from": "S Spandau",
+      "to": "S Erkner"
+    },
+    {
+      "line": 50,
+      "minutes": 74,
+      "from": "Riesaer Str.",
+      "to": "Am Kupfergraben"
+    },
+    {
+      "line": 13,
+      "minutes": 73,
+      "from": "S Potsdam Hauptbahnhof",
+      "to": "S Ahrensfelde"
+    },
+    {
+      "line": 9,
+      "minutes": 72,
+      "from": "S Wannsee",
+      "to": "S Birkenwerder"
+    },
+    {
+      "line": 24,
+      "minutes": 71,
+      "from": "S Frohnau",
+      "to": "Flughafen BER"
+    },
+    {
+      "line": 10,
+      "minutes": 71,
+      "from": "S Blankenfelde (TF)",
+      "to": "S Bernau"
+    },
+    {
+      "line": 32,
+      "minutes": 69,
+      "from": "Rahnsdorf/Waldschänke",
+      "to": "Krankenhaus Köpenick/Südseite"
+    },
+    {
+      "line": 12,
+      "minutes": 65,
+      "from": "S Grunewald",
+      "to": "S Petershagen Nord"
+    }
+  ]
+}

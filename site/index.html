@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BerlInReach · Travel times by U-Bahn, S-Bahn, tram, train, bus and ferry</title>
+    <meta name="description" content="Travel time map of Berlin: pick a starting point and the whole city is coloured by how long it takes to get there by U-Bahn, S-Bahn, tram, regional train, bus and ferry (VBB timetable)." />
+    <meta name="theme-color" content="#3aa70b" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      // Theme before the first paint: the visitor's choice, else the system's (toggle in the top bar, app.js).
+      document.documentElement.dataset.theme =
+        localStorage.getItem("theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    </script>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:site_name" content="BerlInReach" />
+    <meta property="og:title" content="BerlInReach" />
+    <meta property="og:description" content="Travel time map of Berlin: pick a starting point and the whole city is coloured by how long it takes to get there by U-Bahn, S-Bahn, tram, regional train, bus and ferry (VBB timetable)." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="BerlInReach" />
+    <meta name="twitter:description" content="Travel time map of Berlin: pick a starting point and the whole city is coloured by how long it takes to get there by U-Bahn, S-Bahn, tram, regional train, bus and ferry (VBB timetable)." />
+    <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "BerlInReach", "description": "Travel time map of Berlin: pick a starting point and the whole city is coloured by how long it takes to get there by U-Bahn, S-Bahn, tram, regional train, bus and ferry (VBB timetable).", "inLanguage": "en", "applicationCategory": "TravelApplication", "operatingSystem": "Web", "isAccessibleForFree": true, "spatialCoverage": {"@type": "Place", "name": "Berlin"}, "isBasedOn": ["https://tram.camilleroux.com/", "https://castrio.me/nyc/"]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How long does it take to cross Berlin by public transport?", "acceptedAnswer": {"@type": "Answer", "text": "From the centre (Alexanderplatz), 10% of U-Bahn, S-Bahn, tram and train stations are less than 15 minutes away and 55% less than 30 minutes, walking and waiting included. The farthest one, Wendenschloß, takes about 67 minutes."}}, {"@type": "Question", "name": "How often do the U-Bahn and S-Bahn run?", "acceptedAnswer": {"@type": "Answer", "text": "On a weekday between 7:00 and 20:00, the typical gap between two trains is U1: 10 min, U2: 4.4 min, U3: 5 min, U4: 6.7 min, U5: 4.9 min, U6: 4.6 min, U7: 5 min, U8: 5 min, U9: 4.3 min, S1: 9.7 min, S2: 10 min, S3: 10 min, S5: 10 min, S7: 10 min, S8: 20 min, S9: 20 min, S15: 10 min, S25: 20 min, S26: 20 min, S41: 5.3 min, S42: 5.3 min, S46: 19.7 min, S47: 20 min, S75: 10 min, S85: 20 min. The most frequent at rush hour is Tram M4, every 3.2 minutes."}}, {"@type": "Question", "name": "Where do the timetables come from?", "acceptedAnswer": {"@type": "Answer", "text": "From the official VBB timetable in GTFS format (VBB Verkehrsverbund Berlin-Brandenburg GmbH, CC BY), downloaded on 6 October 2026 and valid until 12 December 2026. Times are those of Tuesday 6 October 2026, between 7:00 and 20:00."}}, {"@type": "Question", "name": "Which modes of transport are included?", "acceptedAnswer": {"@type": "Answer", "text": "All of them: U-Bahn, S-Bahn, tram, regional trains (RE, RB, FEX), buses and BVG ferries. Untick a mode under the map to see the city without it — for example only the rail network, or everything but buses. Waiting at rarely served stops is capped at 15 minutes."}}, {"@type": "Question", "name": "How are travel times calculated?", "acceptedAnswer": {"@type": "Answer", "text": "For each trip: walking to the stop at 4.5 km/h, waiting half of the time between two departures, the scheduled time between stops, and 1.5 minutes of walking for each change (plus a minute or so to reach underground and main-line platforms). The Spree, the Havel, the Dahme, the big canals and the lakes can only be crossed on foot over a bridge. No real-time data or disruptions: this is the city “on paper”."}}, {"@type": "Question", "name": "Who made this map?", "acceptedAnswer": {"@type": "Answer", "text": "It adapts À portée de tram by Camille Roux (MIT licence) to Berlin, in English and with every mode of transport. The idea comes from Anthony Castrio's NYC Transit Time Cartogram, adapted to Paris by Jules Grandin (C'est encore loin ?)."}}]}]}</script>
+    <link rel="stylesheet" href="styles.css?v=de8f45d4" />
+  </head>
+  <body>
+    <script id="city-config" type="application/json">{"slug": "berlin", "name": "Berlin", "dataVersion": "a569e556", "defaultFrom": {"lat": 52.52165, "lon": 13.41117, "label": "Alexanderplatz"}, "searchBbox": [52.33, 13.08, 52.68, 13.77]}</script>
+    <header class="topbar">
+      <nav class="topbar-inner" aria-label="Main navigation">
+        <a class="brand" href="./"><img src="favicon.svg" width="22" height="22" alt="" /> BerlInReach</a>
+        <div class="topbar-links">
+          <a class="topbar-link" href="#rankings">🏆 Rankings</a>
+          <a class="topbar-link" href="#faq-title">How it works</a>
+          <button id="themeToggle" type="button" class="icon-button theme-toggle" aria-label="Switch to dark mode">🌙</button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <span class="chip">🚇 U-Bahn · S-Bahn · Tram · Regional trains · Bus · Ferry</span>
+        <h1>Berlin within&nbsp;reach</h1>
+        <p class="lede">
+          The city redrawn by how long it takes to get there by public transport. Pick a starting point: every corner
+          of Berlin is coloured by the travel time from it, computed from the official VBB timetable.
+        </p>
+        <form id="searchForm" class="search" role="search" autocomplete="off">
+          <label class="visually-hidden" for="searchInput">Starting address</label>
+          <input id="searchInput" type="search" placeholder="Start from an address… (e.g. Brandenburger Tor)" />
+          <button type="submit" class="button primary">Start here</button>
+          <ul id="searchResults" class="search-results" hidden></ul>
+        </form>
+        <ol class="steps" aria-label="How to use">
+          <li><strong>1. Start</strong> Search for an address or drag the green dot.</li>
+          <li><strong>2. Destination</strong> Click anywhere: travel time and step-by-step route.</li>
+          <li><strong>3. Read</strong> Green = close, red = far; contour lines at 15, 30 and 45 min. Hover a station for its lines.</li>
+        </ol>
+      </section>
+
+      <section class="map-card" aria-label="Travel time map">
+        <noscript>
+          <p class="noscript">This interactive map needs JavaScript to compute travel times. Please enable it.</p>
+        </noscript>
+        <div id="mapStage" class="map-stage">
+          <canvas id="mapCanvas"></canvas>
+          <div id="mapTooltip" class="map-tooltip" role="tooltip" hidden></div>
+
+          <aside id="tripPanel" class="trip-panel" aria-live="polite">
+            <p class="trip-eyebrow">Start</p>
+            <p id="tripFrom" class="trip-from">Loading the network…</p>
+            <div id="tripResult" class="trip-result" hidden>
+              <div class="trip-row">
+                <p class="trip-eyebrow">Destination</p>
+                <button id="removeTo" type="button" class="link-button">Remove</button>
+              </div>
+              <p id="tripTo" class="trip-to"></p>
+              <p id="tripDuration" class="trip-duration"></p>
+              <ol id="tripSteps" class="trip-steps"></ol>
+              <div id="heatFrom" class="segmented" role="group" aria-label="Point the map is coloured from">
+                <span>Map from</span>
+                <button type="button" data-source="from" aria-pressed="true">the start</button>
+                <button type="button" data-source="to" aria-pressed="false">the destination</button>
+              </div>
+            </div>
+            <p id="tripHint" class="trip-hint">Click on the map to set a destination.</p>
+          </aside>
+
+          <div class="map-buttons">
+            <button id="zoomIn" type="button" class="icon-button" aria-label="Zoom in">+</button>
+            <button id="zoomOut" type="button" class="icon-button" aria-label="Zoom out">−</button>
+            <button id="recenter" type="button" class="icon-button" aria-label="Recentre the map">⌖</button>
+            <button id="fullscreen" type="button" class="icon-button" aria-label="Fullscreen">⤢</button>
+          </div>
+
+          <div class="legend" aria-hidden="true">
+            <div id="legendBar" class="legend-bar"></div>
+            <div class="legend-labels"><span>0</span><span id="legendMid"></span><span id="legendMax"></span></div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <div id="modeToggles" class="control-group">
+            <span class="control-label">Modes</span>
+            <label class="pill-toggle"><input type="checkbox" value="ubahn" checked /><span class="mode-dot" style="background:#115D91"></span> U-Bahn</label>
+            <label class="pill-toggle"><input type="checkbox" value="sbahn" checked /><span class="mode-dot" style="background:#008D4F"></span> S-Bahn</label>
+            <label class="pill-toggle"><input type="checkbox" value="tram" checked /><span class="mode-dot" style="background:#BE1414"></span> Tram</label>
+            <label class="pill-toggle"><input type="checkbox" value="regional" checked /><span class="mode-dot" style="background:#E2001A"></span> Regional train</label>
+            <label class="pill-toggle"><input type="checkbox" value="bus" checked /><span class="mode-dot" style="background:#A5027D"></span> Bus</label>
+            <label class="pill-toggle"><input type="checkbox" value="ferry" checked /><span class="mode-dot" style="background:#0080BA"></span> Ferry</label>
+          </div>
+          <div id="isoToggles" class="control-group">
+            <span class="control-label">Isochrones</span>
+            <label class="pill-toggle"><input type="checkbox" value="15" checked /> 15 min</label>
+            <label class="pill-toggle"><input type="checkbox" value="30" checked /> 30 min</label>
+            <label class="pill-toggle"><input type="checkbox" value="45" checked /> 45 min</label>
+            <label class="pill-toggle"><input type="checkbox" value="60" /> 60 min</label>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="maxRange">Scale</label>
+            <input id="maxRange" type="range" min="20" max="120" step="5" value="60" />
+            <output id="maxValue" for="maxRange">60 min</output>
+            <label class="pill-toggle" title="Yellow (close) to purple (far): readable with any colour vision"><input id="paletteToggle" type="checkbox" /> Colour-blind palette</label>
+          </div>
+          <div class="control-group actions">
+            <button id="locate" type="button" class="button">My location</button>
+            <button id="swap" type="button" class="button">Swap</button>
+            <button id="share" type="button" class="button primary">Share</button>
+          </div>
+        </div>
+        <p id="reach" class="reach"></p>
+      </section>
+
+      <section class="section" aria-labelledby="stats-title">
+        <h2 id="stats-title">Berlin in numbers</h2>
+        <div class="stat-grid">
+          <div class="stat"><strong>55%</strong><span>of U-Bahn, S-Bahn, tram and train stations within 30 min of the centre (Alexanderplatz)</span></div>
+          <div class="stat"><strong>634</strong><span>rail stations, 171 of them on the U-Bahn, 133 on the S-Bahn and 390 on the tram</span></div>
+          <div class="stat"><strong>3.2&nbsp;min</strong><span>between two departures on Tram M4 at rush hour, the most frequent line</span></div>
+          <div class="stat"><strong>67&nbsp;min</strong><span>from the centre to Wendenschloß, the farthest rail station</span></div>
+        </div>
+        <p class="muted">Weekday daytime (7:00–20:00) headways, median over the line's stops, on Tuesday 6 October 2026. Trips that day in the Berlin area: 3,929 U-Bahn, 3,420 S-Bahn, 8,216 Tram, 1,264 Regional train, 37,388 Bus, 324 Ferry; plus 388 bus lines.</p>
+        <details class="lines-block" open>
+          <summary>U-Bahn lines <span class="muted">· 9</span></summary>
+          <table class="lines-table">
+            <thead><tr><th scope="col">Line</th><th scope="col">Stations in Berlin</th><th scope="col">One every</th></tr></thead>
+            <tbody>
+            <tr><td><span class="line-badge" style="background:#7DAD4C;color:#FFFFFF">U1</span></td><td>13</td><td>~10 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#DA421E;color:#FFFFFF">U2</span></td><td>29</td><td>~4.4 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#16683D;color:#FFFFFF">U3</span></td><td>24</td><td>~5 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#F0D722;color:#000000">U4</span></td><td>5</td><td>~6.7 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#7E5330;color:#FFFFFF">U5</span></td><td>26</td><td>~4.9 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#8C6DAB;color:#FFFFFF">U6</span></td><td>24</td><td>~4.6 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#009BD5;color:#FFFFFF">U7</span></td><td>40</td><td>~5 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#224F86;color:#FFFFFF">U8</span></td><td>24</td><td>~5 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#F3791D;color:#000000">U9</span></td><td>18</td><td>~4.3 min</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="lines-block" open>
+          <summary>S-Bahn lines <span class="muted">· 16</span></summary>
+          <table class="lines-table">
+            <thead><tr><th scope="col">Line</th><th scope="col">Stations in Berlin</th><th scope="col">One every</th></tr></thead>
+            <tbody>
+            <tr><td><span class="line-badge" style="background:#DA6BA2;color:#FFFFFF">S1</span></td><td>30</td><td>~9.7 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#007734;color:#FFFFFF">S2</span></td><td>22</td><td>~10 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#0066AD;color:#FFFFFF">S3</span></td><td>30</td><td>~10 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#EB7405;color:#FFFFFF">S5</span></td><td>22</td><td>~10 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#816DA6;color:#FFFFFF">S7</span></td><td>26</td><td>~10 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#66AA22;color:#FFFFFF">S8</span></td><td>18</td><td>~20 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#992746;color:#FFFFFF">S9</span></td><td>30</td><td>~20 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#DA6BA2;color:#FFFFFF">S15</span></td><td>3</td><td>~10 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#007734;color:#FFFFFF">S25</span></td><td>25</td><td>~20 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#007734;color:#FFFFFF">S26</span></td><td>24</td><td>~20 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#AD5937;color:#FFFFFF">S41</span></td><td>35</td><td>~5.3 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#CB6418;color:#FFFFFF">S42</span></td><td>34</td><td>~5.3 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#CD9C53;color:#FFFFFF">S46</span></td><td>20</td><td>~19.7 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#CD9C53;color:#FFFFFF">S47</span></td><td>9</td><td>~20 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#816DA6;color:#FFFFFF">S75</span></td><td>10</td><td>~10 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#66AA22;color:#FFFFFF">S85</span></td><td>25</td><td>~20 min</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="lines-block">
+          <summary>Tram lines <span class="muted">· 23</span></summary>
+          <table class="lines-table">
+            <thead><tr><th scope="col">Line</th><th scope="col">Stations in Berlin</th><th scope="col">One every</th></tr></thead>
+            <tbody>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">12</span></td><td>15</td><td>~10 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">16</span></td><td>30</td><td>~10.2 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">18</span></td><td>49</td><td>~11.8 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">21</span></td><td>44</td><td>~20 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">27</span></td><td>70</td><td>~20 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">50</span></td><td>44</td><td>~9.8 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">60</span></td><td>63</td><td>~19.7 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">61</span></td><td>51</td><td>~20 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">62</span></td><td>32</td><td>~10 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">63</span></td><td>20</td><td>~10 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">67</span></td><td>32</td><td>~10.4 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">68</span></td><td>31</td><td>~10 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">87</span></td><td>1</td><td>~14.2 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">88</span></td><td>2</td><td>~17 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">M1</span></td><td>36</td><td>~14.9 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">M2</span></td><td>32</td><td>~20 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">M4</span></td><td>40</td><td>~3.8 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">M5</span></td><td>70</td><td>~10 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">M6</span></td><td>48</td><td>~9.9 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">M8</span></td><td>57</td><td>~9.9 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">M10</span></td><td>47</td><td>~5 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">M13</span></td><td>48</td><td>~10 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#BE1414;color:#FFFFFF">M17</span></td><td>44</td><td>~5 min</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="lines-block">
+          <summary>Regional trains <span class="muted">· 17</span></summary>
+          <table class="lines-table">
+            <thead><tr><th scope="col">Line</th><th scope="col">Stations in Berlin</th><th scope="col">One every</th></tr></thead>
+            <tbody>
+            <tr><td><span class="line-badge" style="background:#79122F;color:#FFFFFF">FEX</span></td><td>3</td><td>~10 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#E2001A;color:#FFFFFF">RE1</span></td><td>4</td><td>~26.5 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#FFD502;color:#000000">RE2</span></td><td>6</td><td>~60 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#EB7405;color:#FFFFFF">RE3</span></td><td>5</td><td>~60 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#992746;color:#FFFFFF">RE4</span></td><td>6</td><td>~60 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#007734;color:#FFFFFF">RE7</span></td><td>7</td><td>~60 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#816DA6;color:#FFFFFF">RE8</span></td><td>6</td><td>~60 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#E2001A;color:#FFFFFF">RB10</span></td><td>6</td><td>~60 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#A5027D;color:#FFFFFF">RB14</span></td><td>2</td><td>~60 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#501689;color:#FFFFFF">RB21</span></td><td>4</td><td>~60 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#DA6BA2;color:#FFFFFF">RB24</span></td><td>4</td><td>~60 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#007CB0;color:#FFFFFF">RB25</span></td><td>3</td><td>~33.9 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#009686;color:#FFFFFF">RB26</span></td><td>3</td><td>~60 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#E2001A;color:#FFFFFF">RB27</span></td><td>2</td><td>~111.9 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#697C8A;color:#FFFFFF">RB32</span></td><td>3</td><td>~60 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#AD5937;color:#FFFFFF">RB37</span></td><td>1</td><td>~60 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#E2001A;color:#FFFFFF">RE20</span></td><td>3</td><td>~60 min</td></tr>
+            </tbody>
+          </table>
+        </details>
+        <details class="lines-block">
+          <summary>Ferries <span class="muted">· 5</span></summary>
+          <table class="lines-table">
+            <thead><tr><th scope="col">Line</th><th scope="col">Stations in Berlin</th><th scope="col">One every</th></tr></thead>
+            <tbody>
+            <tr><td><span class="line-badge" style="background:#0080BA;color:#FFFFFF">F10</span></td><td>2</td><td>~60 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#0080BA;color:#FFFFFF">F11</span></td><td>2</td><td>~15.9 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#0080BA;color:#FFFFFF">F12</span></td><td>2</td><td>~13.6 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#0080BA;color:#FFFFFF">F21</span></td><td>2</td><td>~45.9 min</td></tr>
+            <tr><td><span class="line-badge" style="background:#0080BA;color:#FFFFFF">F23</span></td><td>4</td><td>~86.7 min</td></tr>
+            </tbody>
+          </table>
+        </details>
+      </section>
+
+      <section id="rankings" class="section" aria-labelledby="rankings-title">
+        <h2 id="rankings-title">🏆 Rankings</h2>
+        <p>Read straight from the timetable of Tuesday 6 October 2026, inside Berlin.</p>
+        <div class="ranking-cards">
+          <div class="ranking-card">
+            <span class="ranking-card-question">Which line runs most often?</span>
+            <ol>
+              <li>🥇 <span class="line-badge" style="background:#BE1414;color:#FFFFFF">M4</span> every <strong>3.2 min</strong></li>
+              <li>🥈 <span class="line-badge" style="background:#BE1414;color:#FFFFFF">M6</span> every <strong>3.3 min</strong></li>
+              <li>🥉 <span class="line-badge" style="background:#F3791D;color:#000000">U9</span> every <strong>4 min</strong></li>
+              <li>4. <span class="line-badge" style="background:#DA421E;color:#FFFFFF">U2</span> every <strong>4 min</strong></li>
+              <li>5. <span class="line-badge" style="background:#8C6DAB;color:#FFFFFF">U6</span> every <strong>4.3 min</strong></li>
+            </ol>
+            <span class="muted">U-Bahn, S-Bahn, tram and trains, 7:00–9:00, busiest stop and direction.</span>
+          </div>
+          <div class="ranking-card">
+            <span class="ranking-card-question">Which station is the busiest?</span>
+            <ol>
+              <li>🥇 <strong>S+U Alexanderplatz</strong> · 2,167 departures</li>
+              <li>🥈 <strong>S+U Friedrichstr.</strong> · 2,110 departures</li>
+              <li>🥉 <strong>S Ostkreuz</strong> · 2,011 departures</li>
+              <li>4. <strong>S Landsberger Allee</strong> · 1,914 departures</li>
+              <li>5. <strong>S+U Berlin Hauptbahnhof</strong> · 1,813 departures</li>
+            </ol>
+            <span class="muted">Rail departures (U, S, tram, regional) over the whole weekday.</span>
+          </div>
+          <div class="ranking-card">
+            <span class="ranking-card-question">Which ride is the longest?</span>
+            <ol>
+              <li>🥇 <span class="line-badge" style="background:#66AA22;color:#FFFFFF">S8</span> <strong>83 min</strong> · S Wildau → S Birkenwerder</li>
+              <li>🥈 <span class="line-badge" style="background:#992746;color:#FFFFFF">S9</span> <strong>79 min</strong> · S Spandau → Flughafen BER</li>
+              <li>🥉 <span class="line-badge" style="background:#0066AD;color:#FFFFFF">S3</span> <strong>74 min</strong> · S Spandau → S Erkner</li>
+              <li>4. <span class="line-badge" style="background:#BE1414;color:#FFFFFF">M6</span> <strong>74 min</strong> · Riesaer Str. → Am Kupfergraben</li>
+              <li>5. <span class="line-badge" style="background:#816DA6;color:#FFFFFF">S7</span> <strong>73 min</strong> · S Potsdam Hauptbahnhof → S Ahrensfelde</li>
+            </ol>
+            <span class="muted">Scheduled time from end to end, U-Bahn, S-Bahn and tram, within the map area.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="faq-title">
+        <h2 id="faq-title">Frequently asked questions</h2>
+        <details class="faq"><summary>How long does it take to cross Berlin by public transport?</summary><p>From the centre (Alexanderplatz), 10% of U-Bahn, S-Bahn, tram and train stations are less than 15 minutes away and 55% less than 30 minutes, walking and waiting included. The farthest one, Wendenschloß, takes about 67 minutes.</p></details>
+        <details class="faq"><summary>How often do the U-Bahn and S-Bahn run?</summary><p>On a weekday between 7:00 and 20:00, the typical gap between two trains is U1: 10 min, U2: 4.4 min, U3: 5 min, U4: 6.7 min, U5: 4.9 min, U6: 4.6 min, U7: 5 min, U8: 5 min, U9: 4.3 min, S1: 9.7 min, S2: 10 min, S3: 10 min, S5: 10 min, S7: 10 min, S8: 20 min, S9: 20 min, S15: 10 min, S25: 20 min, S26: 20 min, S41: 5.3 min, S42: 5.3 min, S46: 19.7 min, S47: 20 min, S75: 10 min, S85: 20 min. The most frequent at rush hour is Tram M4, every 3.2 minutes.</p></details>
+        <details class="faq"><summary>Where do the timetables come from?</summary><p>From the official VBB timetable in GTFS format (VBB Verkehrsverbund Berlin-Brandenburg GmbH, CC BY), downloaded on 6 October 2026 and valid until 12 December 2026. Times are those of Tuesday 6 October 2026, between 7:00 and 20:00.</p></details>
+        <details class="faq"><summary>Which modes of transport are included?</summary><p>All of them: U-Bahn, S-Bahn, tram, regional trains (RE, RB, FEX), buses and BVG ferries. Untick a mode under the map to see the city without it — for example only the rail network, or everything but buses. Waiting at rarely served stops is capped at 15 minutes.</p></details>
+        <details class="faq"><summary>How are travel times calculated?</summary><p>For each trip: walking to the stop at 4.5 km/h, waiting half of the time between two departures, the scheduled time between stops, and 1.5 minutes of walking for each change (plus a minute or so to reach underground and main-line platforms). The Spree, the Havel, the Dahme, the big canals and the lakes can only be crossed on foot over a bridge. No real-time data or disruptions: this is the city “on paper”.</p></details>
+        <details class="faq"><summary>Who made this map?</summary><p>It adapts <a href="https://tram.camilleroux.com/">À portée de tram</a> by <a href="https://www.camilleroux.com/">Camille Roux</a> (MIT licence) to Berlin, in English and with every mode of transport. The idea comes from Anthony Castrio's <a href="https://castrio.me/nyc/">NYC Transit Time Cartogram</a>, adapted to Paris by Jules Grandin (<a href="https://julesgrandin.github.io/paris-temps-transport/">C'est encore loin ?</a>).</p></details>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-author">
+          An English, all-modes adaptation for Berlin of <a href="https://tram.camilleroux.com/">À portée de tram</a>
+          by <a href="https://www.camilleroux.com/">Camille Roux</a>, itself inspired by Anthony Castrio's
+          <a href="https://castrio.me/nyc/">NYC Transit Time Cartogram</a> and Jules Grandin's
+          <a href="https://julesgrandin.github.io/paris-temps-transport/">Paris map</a>.
+        </p>
+        <p class="footer-credits">
+          Timetables: <a href="https://daten.berlin.de/datensaetze/vbb-fahrplandaten-via-gtfs">VBB GTFS</a> (VBB Verkehrsverbund Berlin-Brandenburg GmbH, <a href="https://opendefinition.org/licenses/cc-by/">CC BY</a>),
+          downloaded 6 October 2026. District boundaries: <a href="https://daten.odis-berlin.de/de/dataset/bezirksgrenzen/">Geoportal Berlin</a> (dl-de/zero-2-0).
+          Base map © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> (ODbL).
+          Address search: <a href="https://photon.komoot.io/">Photon</a> by Komoot, on OpenStreetMap data.
+          Code under the MIT licence.
+        </p>
+      </div>
+    </footer>
+
+    <div id="toast" class="toast" role="status" hidden></div>
+    <script type="module" src="app.js?v=71b8e518"></script>
+  </body>
+</html>

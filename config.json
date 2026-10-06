@@ -1,0 +1,48 @@
+{
+  "slug": "berlin",
+  "name": "Berlin",
+  "siteTitle": "BerlInReach",
+  "network": "VBB",
+  "gtfsUrl": "https://unternehmen.vbb.de/gtfs",
+  "gtfsDataset": "https://daten.berlin.de/datensaetze/vbb-fahrplandaten-via-gtfs",
+  "gtfsLicence": "CC BY",
+  "gtfsLicenceUrl": "https://opendefinition.org/licenses/cc-by/",
+  "districtsUrl": "https://tsb-opendata.s3.eu-central-1.amazonaws.com/bezirksgrenzen/bezirksgrenzen.geojson",
+  "districtsDataset": "https://daten.odis-berlin.de/de/dataset/bezirksgrenzen/",
+  "districtsLicence": "dl-de/zero-2-0",
+  "defaultFrom": {
+    "lat": 52.52165,
+    "lon": 13.41117,
+    "label": "Alexanderplatz"
+  },
+  "searchExample": "Brandenburger Tor",
+  "lat0": 52.52,
+  "stopBbox": [
+    52.31,
+    13.03,
+    52.7,
+    13.82
+  ],
+  "osmBbox": [
+    52.32,
+    13.06,
+    52.7,
+    13.79
+  ],
+  "rivers": [
+    "Spree",
+    "Havel",
+    "Dahme"
+  ],
+  "canals": [
+    "Teltowkanal",
+    "Berlin-Spandauer Schifffahrtskanal"
+  ],
+  "gtfsAttribution": "VBB Verkehrsverbund Berlin-Brandenburg GmbH",
+  "searchBbox": [
+    52.33,
+    13.08,
+    52.68,
+    13.77
+  ]
+}

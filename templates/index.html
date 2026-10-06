@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>${title} · Travel times by U-Bahn, S-Bahn, tram, train, bus and ferry</title>
+    <meta name="description" content="${description}" />
+    <meta name="theme-color" content="#3aa70b" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      // Theme before the first paint: the visitor's choice, else the system's (toggle in the top bar, app.js).
+      document.documentElement.dataset.theme =
+        localStorage.getItem("theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    </script>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:site_name" content="${title}" />
+    <meta property="og:title" content="${title}" />
+    <meta property="og:description" content="${description}" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="${title}" />
+    <meta name="twitter:description" content="${description}" />
+    <script type="application/ld+json">${json_ld}</script>
+    <link rel="stylesheet" href="styles.css?v=${styles_version}" />
+  </head>
+  <body>
+    <script id="city-config" type="application/json">${city_config}</script>
+    <header class="topbar">
+      <nav class="topbar-inner" aria-label="Main navigation">
+        <a class="brand" href="./"><img src="favicon.svg" width="22" height="22" alt="" /> ${title}</a>
+        <div class="topbar-links">
+          <a class="topbar-link" href="#rankings">🏆 Rankings</a>
+          <a class="topbar-link" href="#faq-title">How it works</a>
+          <button id="themeToggle" type="button" class="icon-button theme-toggle" aria-label="Switch to dark mode">🌙</button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="page">
+      <section class="hero">
+        <span class="chip">🚇 U-Bahn · S-Bahn · Tram · Regional trains · Bus · Ferry</span>
+        <h1>${name} within&nbsp;reach</h1>
+        <p class="lede">
+          The city redrawn by how long it takes to get there by public transport. Pick a starting point: every corner
+          of ${name} is coloured by the travel time from it, computed from the official ${network} timetable.
+        </p>
+        <form id="searchForm" class="search" role="search" autocomplete="off">
+          <label class="visually-hidden" for="searchInput">Starting address</label>
+          <input id="searchInput" type="search" placeholder="Start from an address… (e.g. ${search_example})" />
+          <button type="submit" class="button primary">Start here</button>
+          <ul id="searchResults" class="search-results" hidden></ul>
+        </form>
+        <ol class="steps" aria-label="How to use">
+          <li><strong>1. Start</strong> Search for an address or drag the green dot.</li>
+          <li><strong>2. Destination</strong> Click anywhere: travel time and step-by-step route.</li>
+          <li><strong>3. Read</strong> Green = close, red = far; contour lines at 15, 30 and 45 min. Hover a station for its lines.</li>
+        </ol>
+      </section>
+
+      <section class="map-card" aria-label="Travel time map">
+        <noscript>
+          <p class="noscript">This interactive map needs JavaScript to compute travel times. Please enable it.</p>
+        </noscript>
+        <div id="mapStage" class="map-stage">
+          <canvas id="mapCanvas"></canvas>
+          <div id="mapTooltip" class="map-tooltip" role="tooltip" hidden></div>
+
+          <aside id="tripPanel" class="trip-panel" aria-live="polite">
+            <p class="trip-eyebrow">Start</p>
+            <p id="tripFrom" class="trip-from">Loading the network…</p>
+            <div id="tripResult" class="trip-result" hidden>
+              <div class="trip-row">
+                <p class="trip-eyebrow">Destination</p>
+                <button id="removeTo" type="button" class="link-button">Remove</button>
+              </div>
+              <p id="tripTo" class="trip-to"></p>
+              <p id="tripDuration" class="trip-duration"></p>
+              <ol id="tripSteps" class="trip-steps"></ol>
+              <div id="heatFrom" class="segmented" role="group" aria-label="Point the map is coloured from">
+                <span>Map from</span>
+                <button type="button" data-source="from" aria-pressed="true">the start</button>
+                <button type="button" data-source="to" aria-pressed="false">the destination</button>
+              </div>
+            </div>
+            <p id="tripHint" class="trip-hint">Click on the map to set a destination.</p>
+          </aside>
+
+          <div class="map-buttons">
+            <button id="zoomIn" type="button" class="icon-button" aria-label="Zoom in">+</button>
+            <button id="zoomOut" type="button" class="icon-button" aria-label="Zoom out">−</button>
+            <button id="recenter" type="button" class="icon-button" aria-label="Recentre the map">⌖</button>
+            <button id="fullscreen" type="button" class="icon-button" aria-label="Fullscreen">⤢</button>
+          </div>
+
+          <div class="legend" aria-hidden="true">
+            <div id="legendBar" class="legend-bar"></div>
+            <div class="legend-labels"><span>0</span><span id="legendMid"></span><span id="legendMax"></span></div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <div id="modeToggles" class="control-group">
+            <span class="control-label">Modes</span>
+${mode_toggles}
+          </div>
+          <div id="isoToggles" class="control-group">
+            <span class="control-label">Isochrones</span>
+            <label class="pill-toggle"><input type="checkbox" value="15" checked /> 15 min</label>
+            <label class="pill-toggle"><input type="checkbox" value="30" checked /> 30 min</label>
+            <label class="pill-toggle"><input type="checkbox" value="45" checked /> 45 min</label>
+            <label class="pill-toggle"><input type="checkbox" value="60" /> 60 min</label>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="maxRange">Scale</label>
+            <input id="maxRange" type="range" min="20" max="120" step="5" value="60" />
+            <output id="maxValue" for="maxRange">60 min</output>
+            <label class="pill-toggle" title="Yellow (close) to purple (far): readable with any colour vision"><input id="paletteToggle" type="checkbox" /> Colour-blind palette</label>
+          </div>
+          <div class="control-group actions">
+            <button id="locate" type="button" class="button">My location</button>
+            <button id="swap" type="button" class="button">Swap</button>
+            <button id="share" type="button" class="button primary">Share</button>
+          </div>
+        </div>
+        <p id="reach" class="reach"></p>
+      </section>
+
+      <section class="section" aria-labelledby="stats-title">
+        <h2 id="stats-title">${name} in numbers</h2>
+        <div class="stat-grid">
+${stat_cards}
+        </div>
+${line_tables}
+      </section>
+
+      <section id="rankings" class="section" aria-labelledby="rankings-title">
+        <h2 id="rankings-title">🏆 Rankings</h2>
+        <p>Read straight from the timetable of ${reference_day}, inside ${name}.</p>
+        <div class="ranking-cards">
+${ranking_cards}
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="faq-title">
+        <h2 id="faq-title">Frequently asked questions</h2>
+${faq}
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-author">
+          An English, all-modes adaptation for ${name} of <a href="https://tram.camilleroux.com/">À portée de tram</a>
+          by <a href="https://www.camilleroux.com/">Camille Roux</a>, itself inspired by Anthony Castrio's
+          <a href="https://castrio.me/nyc/">NYC Transit Time Cartogram</a> and Jules Grandin's
+          <a href="https://julesgrandin.github.io/paris-temps-transport/">Paris map</a>.
+        </p>
+        <p class="footer-credits">
+          Timetables: <a href="${gtfs_dataset}">${network} GTFS</a> (${gtfs_attribution}, <a href="${gtfs_licence_url}">${gtfs_licence}</a>),
+          downloaded ${fetched_day}. District boundaries: <a href="${districts_dataset}">Geoportal Berlin</a> (${districts_licence}).
+          Base map © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> (ODbL).
+          Address search: <a href="https://photon.komoot.io/">Photon</a> by Komoot, on OpenStreetMap data.
+          Code under the MIT licence.
+        </p>
+      </div>
+    </footer>
+
+    <div id="toast" class="toast" role="status" hidden></div>
+    <script type="module" src="app.js?v=${app_version}"></script>
+  </body>
+</html>
