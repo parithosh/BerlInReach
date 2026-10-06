@@ -1361,8 +1361,8 @@ output {
 }
 
 @media (max-width: 460px) {
-  .bar-right a[href="#numbers"],
-  .bar-right a[href="#about"] {
+  .bar-right a[href$="#numbers"],
+  .bar-right a[href$="#about"] {
     display: none;
   }
 }

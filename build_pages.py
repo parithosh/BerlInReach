@@ -296,6 +296,14 @@ MEET_PANEL = """          <aside id="meetPanel" class="trip-panel meet-panel" ar
             </div>
           </aside>"""
 
+
+# The same top bar on every page. On the main page the anchors stay on the page (a "./#map" link would reload it
+# and drop the start and destination kept in the address); from the meeting planner they lead to the main page.
+def nav_links(prefix: str) -> list[tuple[str, str]]:
+    return [(f"{prefix}#map", "Map"), ("meet.html", "Where to meet?"), (f"{prefix}#numbers", "Numbers"),
+            (f"{prefix}#rankings", "Rankings"), (f"{prefix}#about", "About")]
+
+
 MEET_ACTIONS = """            <button id="locate" type="button" class="button">Add my location</button>
             <button id="share" type="button" class="button primary">Share</button>"""
 
@@ -362,7 +370,7 @@ def main() -> None:
         og_title=escape(title),
         description=escape(description),
         json_ld=json_ld(config, title, description, faq),
-        nav=nav([("#map", "Map"), ("meet.html", "Meet"), ("#numbers", "Numbers"), ("#rankings", "Rankings"), ("#about", "About")]),
+        nav=nav(nav_links("")),
         main=main_html,
         script="app.js",
         script_version=version(SITE / "app.js"),
@@ -384,11 +392,11 @@ def main() -> None:
     page = render(
         "base.html",
         **shared,
-        page_title=f"Where to meet · {escape(title)}",
-        og_title=f"Where to meet · {escape(title)}",
+        page_title=f"Where to meet? · {escape(title)}",
+        og_title=f"Where to meet? · {escape(title)}",
         description=escape(description),
         json_ld=json_ld(config, f"{title}: where to meet", description, faq),
-        nav=nav([("./", "Map"), ("meet.html", "Meet"), ("#about", "About")]),
+        nav=nav(nav_links("./")),
         main=main_html,
         script="meet.js",
         script_version=version(SITE / "meet.js"),
