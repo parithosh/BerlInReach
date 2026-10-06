@@ -162,15 +162,26 @@ def faq_entries(config: dict, stats: dict, lines: list) -> list[tuple[str, str]]
         (
             "Which modes of transport are included?",
             "All of them: U-Bahn, S-Bahn, tram, regional trains (RE, RB, FEX), buses and BVG ferries. Untick a mode under the "
-            "map to see the city without it — for example only the rail network, or everything but buses. Waiting at rarely "
-            "served stops is capped at 15 minutes.",
+            "map to see the city without it — for example only the rail network, or everything but buses.",
+        ),
+        (
+            "What do Day, Rush hour and Night mean?",
+            f"Three slices of the same weekday timetable ({long_date(stats['referenceDate'])}): Day is 7:00–20:00, Rush hour "
+            "7:00–9:00, and Night 1:30–3:30 the following morning, when the U-Bahn and most of the S-Bahn have stopped and "
+            "night buses and night trams take over. Waits are capped at 15 minutes by day and 30 minutes at night.",
+        ),
+        (
+            "What does the bike option do?",
+            "It replaces the walk to the first stop and from the last one (or the whole trip, when that is quicker) with a "
+            "bike ride at 15 km/h, plus 2 minutes to unlock and park. Stations up to 6 km away are then worth reaching. "
+            "Changes between lines are still on foot, and taking the bike along is assumed to be allowed.",
         ),
         (
             "How are travel times calculated?",
             "For each trip: walking to the stop at 4.5 km/h, waiting half of the time between two departures, the scheduled "
             "time between stops, and 1.5 minutes of walking for each change (plus a minute or so to reach underground and "
-            "main-line platforms). The Spree, the Havel, the Dahme, the big canals and the lakes can only be crossed on "
-            "foot over a bridge. No real-time data or disruptions: this is the city “on paper”.",
+            "main-line platforms). The Spree, the Havel, the Dahme, the big canals and the lakes can only be crossed over a "
+            "bridge. No real-time data or disruptions: this is the city “on paper”.",
         ),
     ]
     credits = (
@@ -188,31 +199,41 @@ def strip_tags(text: str) -> str:
     return unescape(re.sub(r"<[^>]+>", "", text))
 
 
-def main() -> None:
-    config = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
-    stats = json.loads((ROOT / "data" / "stats.json").read_text(encoding="utf-8"))
-    lines = stats["lineInfo"]
-    data_path = SITE / "data" / f"{config['slug']}.json"
+def meet_faq_entries() -> list[tuple[str, str]]:
+    plain = [
+        (
+            "How is the best spot chosen?",
+            "For every U-Bahn, S-Bahn, tram and train station in Berlin, the travel time from each person is computed with "
+            "the same model as the main map. “Fairest” ranks stations by the longest of those trips, so nobody travels much "
+            "longer than the others; “Fastest on average” ranks them by the average trip, which can leave one person with "
+            "a long ride. The three best stations at least 900 m apart are listed.",
+        ),
+        (
+            "What does the colour show?",
+            "For each point of the city, the longest trip anyone in the group would make to get there (or the average "
+            "trip, with “Fastest on average”). Hover anywhere to see each person's time.",
+        ),
+        (
+            "How do I add, move or remove people?",
+            "Click the map or search for an address to add someone, up to five. Drag a marker to move it, double-click it "
+            "(or use Remove in the list) to take it away. The link in the address bar keeps everyone: share it with the group.",
+        ),
+    ]
+    return [(question, escape(answer)) for question, answer in plain]
 
-    description = (
-        f"Travel time map of {config['name']}: pick a starting point and the whole city is coloured by how long it takes "
-        f"to get there by U-Bahn, S-Bahn, tram, regional train, bus and ferry ({config['network']} timetable)."
-    )
-    city_config = {
-        "slug": config["slug"],
-        "name": config["name"],
-        "dataVersion": version(data_path),
-        "defaultFrom": config["defaultFrom"],
-        "searchBbox": config["searchBbox"],
-    }
-    faq = faq_entries(config, stats, lines)
+
+def faq_html(faq: list[tuple[str, str]]) -> str:
+    return "\n".join(f'        <details class="faq"><summary>{escape(q)}</summary><p>{a}</p></details>' for q, a in faq)
+
+
+def json_ld(config: dict, name: str, description: str, faq: list[tuple[str, str]]) -> str:
     # Answers are written in HTML (links); the structured data gets their plain text.
-    json_ld = {
+    graph = {
         "@context": "https://schema.org",
         "@graph": [
             {
                 "@type": "WebApplication",
-                "name": config["siteTitle"],
+                "name": name,
                 "description": description,
                 "inLanguage": "en",
                 "applicationCategory": "TravelApplication",
@@ -229,22 +250,79 @@ def main() -> None:
             },
         ],
     }
-    page = Template((ROOT / "templates" / "index.html").read_text(encoding="utf-8")).substitute(
-        title=escape(config["siteTitle"]),
+    return json.dumps(graph, ensure_ascii=False).replace("</", "<\\/")
+
+
+def render(template: str, **values) -> str:
+    return Template((ROOT / "templates" / template).read_text(encoding="utf-8")).substitute(**values)
+
+
+INDEX_PANEL = """          <aside id="tripPanel" class="trip-panel" aria-live="polite">
+            <p class="trip-eyebrow">Start</p>
+            <p id="tripFrom" class="trip-from">Loading the network…</p>
+            <div id="tripResult" class="trip-result" hidden>
+              <div class="trip-row">
+                <p class="trip-eyebrow">Destination</p>
+                <button id="removeTo" type="button" class="link-button">Remove</button>
+              </div>
+              <p id="tripTo" class="trip-to"></p>
+              <p id="tripDuration" class="trip-duration"></p>
+              <ol id="tripSteps" class="trip-steps"></ol>
+              <div id="heatFrom" class="segmented" role="group" aria-label="Point the map is coloured from">
+                <span>Map from</span>
+                <button type="button" data-source="from" aria-pressed="true">Start</button>
+                <button type="button" data-source="to" aria-pressed="false">Destination</button>
+              </div>
+            </div>
+            <p id="tripHint" class="trip-hint">Click on the map to set a destination.</p>
+          </aside>"""
+
+INDEX_ACTIONS = """            <button id="locate" type="button" class="button">My location</button>
+            <button id="swap" type="button" class="button">Swap</button>
+            <button id="share" type="button" class="button primary">Share</button>"""
+
+MEET_PANEL = """          <aside id="meetPanel" class="trip-panel meet-panel" aria-live="polite">
+            <p class="trip-eyebrow">People</p>
+            <ul id="peopleList" class="people-list"></ul>
+            <p id="peopleHint" class="trip-hint">Loading the network…</p>
+            <div id="objective" class="segmented" role="group" aria-label="What makes a good spot">
+              <span>Meet at the</span>
+              <button type="button" data-objective="fair" aria-pressed="true" title="Smallest longest trip">Fairest spot</button>
+              <button type="button" data-objective="total" aria-pressed="false" title="Smallest average trip">Fastest on average</button>
+            </div>
+            <div id="spotsBlock" class="spots-block" hidden>
+              <p class="trip-eyebrow">Best stations</p>
+              <ol id="spotList" class="spot-list"></ol>
+            </div>
+          </aside>"""
+
+MEET_ACTIONS = """            <button id="locate" type="button" class="button">Add my location</button>
+            <button id="share" type="button" class="button primary">Share</button>"""
+
+
+def main() -> None:
+    config = json.loads((ROOT / "config.json").read_text(encoding="utf-8"))
+    stats = json.loads((ROOT / "data" / "stats.json").read_text(encoding="utf-8"))
+    lines = stats["lineInfo"]
+    # One version for the whole data set (base and the three time windows): they must change together.
+    data_files = sorted((SITE / "data").glob(f"{config['slug']}*.json"))
+    data_version = hashlib.sha256(b"".join(path.read_bytes() for path in data_files)).hexdigest()[:8]
+    city_config = {
+        "slug": config["slug"],
+        "name": config["name"],
+        "dataVersion": data_version,
+        "defaultFrom": config["defaultFrom"],
+        "searchBbox": config["searchBbox"],
+    }
+    title = config["siteTitle"]
+    shared = dict(
+        title=escape(title),
         name=escape(config["name"]),
         network=escape(config["network"]),
-        description=escape(description),
         search_example=escape(config["searchExample"]),
-        json_ld=json.dumps(json_ld, ensure_ascii=False).replace("</", "<\\/"),
         city_config=json.dumps(city_config, ensure_ascii=False).replace("</", "<\\/"),
         styles_version=version(SITE / "styles.css"),
-        app_version=version(SITE / "app.js"),
-        mode_toggles=mode_toggles(),
-        stat_cards=stat_cards(stats, lines),
-        line_tables=line_tables(stats),
-        ranking_cards=ranking_cards(stats, lines),
-        reference_day=long_date(stats["referenceDate"]),
-        faq="\n".join(f'        <details class="faq"><summary>{escape(q)}</summary><p>{a}</p></details>' for q, a in faq),
+        core_version=version(SITE / "core.js"),
         gtfs_dataset=config["gtfsDataset"],
         gtfs_attribution=escape(config["gtfsAttribution"]),
         gtfs_licence=escape(config["gtfsLicence"]),
@@ -253,8 +331,70 @@ def main() -> None:
         districts_dataset=config["districtsDataset"],
         districts_licence=escape(config["districtsLicence"]),
     )
+
+    def map_card(panel: str, actions: str, legend_title: str) -> str:
+        return render("map.html", panel=panel, actions=actions, legend_title=legend_title, mode_toggles=mode_toggles())
+
+    def nav(links: list[tuple[str, str]]) -> str:
+        return "\n".join(f'        <a href="{href}">{label}</a>' for href, label in links)
+
+    # Main page: one start.
+    description = (
+        f"Travel time map of {config['name']}: pick a starting point and the whole city is coloured by how long it takes "
+        f"to get there by U-Bahn, S-Bahn, tram, regional train, bus and ferry, by day, at rush hour or at night "
+        f"({config['network']} timetable)."
+    )
+    faq = faq_entries(config, stats, lines)
+    main_html = render(
+        "index.html",
+        **shared,
+        map=map_card(INDEX_PANEL, INDEX_ACTIONS, "Travel time"),
+        stat_cards=stat_cards(stats, lines),
+        line_tables=line_tables(stats),
+        ranking_cards=ranking_cards(stats, lines),
+        reference_day=long_date(stats["referenceDate"]),
+        faq=faq_html(faq),
+    )
+    page = render(
+        "base.html",
+        **shared,
+        page_title=f"{escape(title)} · Travel times by U-Bahn, S-Bahn, tram, train, bus and ferry",
+        og_title=escape(title),
+        description=escape(description),
+        json_ld=json_ld(config, title, description, faq),
+        nav=nav([("#map", "Map"), ("meet.html", "Meet"), ("#numbers", "Numbers"), ("#rankings", "Rankings"), ("#about", "About")]),
+        main=main_html,
+        script="app.js",
+        script_version=version(SITE / "app.js"),
+    )
     (SITE / "index.html").write_text(page, encoding="utf-8")
-    print(f"Wrote site/index.html (built {datetime.now():%Y-%m-%d %H:%M})")
+
+    # Meeting planner: up to five people.
+    description = (
+        f"Where to meet in {config['name']}: add up to five people and find the station everyone reaches fastest by "
+        f"public transport, by day, at rush hour or at night."
+    )
+    faq = meet_faq_entries()
+    main_html = render(
+        "meet.html",
+        **shared,
+        map=map_card(MEET_PANEL, MEET_ACTIONS, "Longest trip among everyone"),
+        faq=faq_html(faq),
+    )
+    page = render(
+        "base.html",
+        **shared,
+        page_title=f"Where to meet · {escape(title)}",
+        og_title=f"Where to meet · {escape(title)}",
+        description=escape(description),
+        json_ld=json_ld(config, f"{title}: where to meet", description, faq),
+        nav=nav([("./", "Map"), ("meet.html", "Meet"), ("#about", "About")]),
+        main=main_html,
+        script="meet.js",
+        script_version=version(SITE / "meet.js"),
+    )
+    (SITE / "meet.html").write_text(page, encoding="utf-8")
+    print(f"Wrote site/index.html and site/meet.html (built {datetime.now():%Y-%m-%d %H:%M})")
 
 
 if __name__ == "__main__":

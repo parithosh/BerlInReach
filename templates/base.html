@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>${page_title}</title>
+    <meta name="description" content="${description}" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      // Theme before the first paint: the visitor's choice, else the system's (toggle in the top bar, core.js).
+      document.documentElement.dataset.theme =
+        localStorage.getItem("theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    </script>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="modulepreload" href="core.js?v=${core_version}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:site_name" content="${title}" />
+    <meta property="og:title" content="${og_title}" />
+    <meta property="og:description" content="${description}" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="${og_title}" />
+    <meta name="twitter:description" content="${description}" />
+    <script type="application/ld+json">${json_ld}</script>
+    <link rel="stylesheet" href="styles.css?v=${styles_version}" />
+  </head>
+  <body>
+    <script id="city-config" type="application/json">${city_config}</script>
+    <header class="bar">
+      <a class="bar-brand" href="./" aria-label="${title}">Berl<span class="in">In</span>Reach</a>
+      <nav class="bar-right" aria-label="Main navigation">
+${nav}
+        <button id="themeToggle" type="button" class="bar-button theme-toggle" aria-label="Switch to dark mode">
+          <svg class="theme-icon moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z" /></svg>
+          <svg class="theme-icon sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" /></svg>
+        </button>
+      </nav>
+    </header>
+
+    <main class="page">
+${main}
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-brand">Berl<span class="in">In</span>Reach <span class="footer-byline">For ${name} by <a href="https://github.com/parithosh">Parithosh</a></span></p>
+        <p>
+          An English, all-modes adaptation for ${name} of <a href="https://tram.camilleroux.com/">À portée de tram</a>
+          by <a href="https://www.camilleroux.com/">Camille Roux</a>, itself inspired by Anthony Castrio's
+          <a href="https://castrio.me/nyc/">NYC Transit Time Cartogram</a> and Jules Grandin's
+          <a href="https://julesgrandin.github.io/paris-temps-transport/">Paris map</a>.
+        </p>
+        <p class="footer-credits">
+          Timetables: <a href="${gtfs_dataset}">${network} GTFS</a> (${gtfs_attribution}, <a href="${gtfs_licence_url}">${gtfs_licence}</a>),
+          downloaded ${fetched_day}. District boundaries: <a href="${districts_dataset}">Geoportal Berlin</a> (${districts_licence}).
+          Base map © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> (ODbL).
+          Address search: <a href="https://photon.komoot.io/">Photon</a> by Komoot, on OpenStreetMap data.
+          Typeface: <a href="https://github.com/Outfitio/Outfit-Fonts">Outfit</a> (SIL OFL). Code under the MIT licence.
+        </p>
+      </div>
+    </footer>
+
+    <div id="toast" class="toast" role="status" hidden></div>
+    <script type="module" src="${script}?v=${script_version}"></script>
+  </body>
+</html>

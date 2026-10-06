@@ -4,33 +4,35 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>BerlInReach · Travel times by U-Bahn, S-Bahn, tram, train, bus and ferry</title>
-    <meta name="description" content="Travel time map of Berlin: pick a starting point and the whole city is coloured by how long it takes to get there by U-Bahn, S-Bahn, tram, regional train, bus and ferry (VBB timetable)." />
+    <meta name="description" content="Travel time map of Berlin: pick a starting point and the whole city is coloured by how long it takes to get there by U-Bahn, S-Bahn, tram, regional train, bus and ferry, by day, at rush hour or at night (VBB timetable)." />
     <meta name="theme-color" content="#ffffff" />
     <meta name="color-scheme" content="light dark" />
     <script>
-      // Theme before the first paint: the visitor's choice, else the system's (toggle in the top bar, app.js).
+      // Theme before the first paint: the visitor's choice, else the system's (toggle in the top bar, core.js).
       document.documentElement.dataset.theme =
         localStorage.getItem("theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     </script>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="preload" href="fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="modulepreload" href="core.js?v=dccdf651" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_GB" />
     <meta property="og:site_name" content="BerlInReach" />
     <meta property="og:title" content="BerlInReach" />
-    <meta property="og:description" content="Travel time map of Berlin: pick a starting point and the whole city is coloured by how long it takes to get there by U-Bahn, S-Bahn, tram, regional train, bus and ferry (VBB timetable)." />
+    <meta property="og:description" content="Travel time map of Berlin: pick a starting point and the whole city is coloured by how long it takes to get there by U-Bahn, S-Bahn, tram, regional train, bus and ferry, by day, at rush hour or at night (VBB timetable)." />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="BerlInReach" />
-    <meta name="twitter:description" content="Travel time map of Berlin: pick a starting point and the whole city is coloured by how long it takes to get there by U-Bahn, S-Bahn, tram, regional train, bus and ferry (VBB timetable)." />
-    <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "BerlInReach", "description": "Travel time map of Berlin: pick a starting point and the whole city is coloured by how long it takes to get there by U-Bahn, S-Bahn, tram, regional train, bus and ferry (VBB timetable).", "inLanguage": "en", "applicationCategory": "TravelApplication", "operatingSystem": "Web", "isAccessibleForFree": true, "spatialCoverage": {"@type": "Place", "name": "Berlin"}, "isBasedOn": ["https://tram.camilleroux.com/", "https://castrio.me/nyc/"]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How long does it take to cross Berlin by public transport?", "acceptedAnswer": {"@type": "Answer", "text": "From the centre (Alexanderplatz), 10% of U-Bahn, S-Bahn, tram and train stations are less than 15 minutes away and 55% less than 30 minutes, walking and waiting included. The farthest one, Wendenschloß, takes about 67 minutes."}}, {"@type": "Question", "name": "How often do the U-Bahn and S-Bahn run?", "acceptedAnswer": {"@type": "Answer", "text": "On a weekday between 7:00 and 20:00, the typical gap between two trains is U1: 10 min, U2: 4.4 min, U3: 5 min, U4: 6.7 min, U5: 4.9 min, U6: 4.6 min, U7: 5 min, U8: 5 min, U9: 4.3 min, S1: 9.7 min, S2: 10 min, S3: 10 min, S5: 10 min, S7: 10 min, S8: 20 min, S9: 20 min, S15: 10 min, S25: 20 min, S26: 20 min, S41: 5.3 min, S42: 5.3 min, S46: 19.7 min, S47: 20 min, S75: 10 min, S85: 20 min. The most frequent at rush hour is Tram M4, every 3.2 minutes."}}, {"@type": "Question", "name": "Where do the timetables come from?", "acceptedAnswer": {"@type": "Answer", "text": "From the official VBB timetable in GTFS format (VBB Verkehrsverbund Berlin-Brandenburg GmbH, CC BY), downloaded on 6 October 2026 and valid until 12 December 2026. Times are those of Tuesday 6 October 2026, between 7:00 and 20:00."}}, {"@type": "Question", "name": "Which modes of transport are included?", "acceptedAnswer": {"@type": "Answer", "text": "All of them: U-Bahn, S-Bahn, tram, regional trains (RE, RB, FEX), buses and BVG ferries. Untick a mode under the map to see the city without it — for example only the rail network, or everything but buses. Waiting at rarely served stops is capped at 15 minutes."}}, {"@type": "Question", "name": "How are travel times calculated?", "acceptedAnswer": {"@type": "Answer", "text": "For each trip: walking to the stop at 4.5 km/h, waiting half of the time between two departures, the scheduled time between stops, and 1.5 minutes of walking for each change (plus a minute or so to reach underground and main-line platforms). The Spree, the Havel, the Dahme, the big canals and the lakes can only be crossed on foot over a bridge. No real-time data or disruptions: this is the city “on paper”."}}, {"@type": "Question", "name": "Who made this map?", "acceptedAnswer": {"@type": "Answer", "text": "It adapts À portée de tram by Camille Roux (MIT licence) to Berlin, in English and with every mode of transport. The idea comes from Anthony Castrio's NYC Transit Time Cartogram, adapted to Paris by Jules Grandin (C'est encore loin ?)."}}]}]}</script>
-    <link rel="stylesheet" href="styles.css?v=8f025ae9" />
+    <meta name="twitter:description" content="Travel time map of Berlin: pick a starting point and the whole city is coloured by how long it takes to get there by U-Bahn, S-Bahn, tram, regional train, bus and ferry, by day, at rush hour or at night (VBB timetable)." />
+    <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "BerlInReach", "description": "Travel time map of Berlin: pick a starting point and the whole city is coloured by how long it takes to get there by U-Bahn, S-Bahn, tram, regional train, bus and ferry, by day, at rush hour or at night (VBB timetable).", "inLanguage": "en", "applicationCategory": "TravelApplication", "operatingSystem": "Web", "isAccessibleForFree": true, "spatialCoverage": {"@type": "Place", "name": "Berlin"}, "isBasedOn": ["https://tram.camilleroux.com/", "https://castrio.me/nyc/"]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How long does it take to cross Berlin by public transport?", "acceptedAnswer": {"@type": "Answer", "text": "From the centre (Alexanderplatz), 10% of U-Bahn, S-Bahn, tram and train stations are less than 15 minutes away and 55% less than 30 minutes, walking and waiting included. The farthest one, Wendenschloß, takes about 67 minutes."}}, {"@type": "Question", "name": "How often do the U-Bahn and S-Bahn run?", "acceptedAnswer": {"@type": "Answer", "text": "On a weekday between 7:00 and 20:00, the typical gap between two trains is U1: 10 min, U2: 4.4 min, U3: 5 min, U4: 6.7 min, U5: 4.9 min, U6: 4.6 min, U7: 5 min, U8: 5 min, U9: 4.3 min, S1: 9.7 min, S2: 10 min, S3: 10 min, S5: 10 min, S7: 10 min, S8: 20 min, S9: 20 min, S15: 10 min, S25: 20 min, S26: 20 min, S41: 5.3 min, S42: 5.3 min, S46: 19.7 min, S47: 20 min, S75: 10 min, S85: 20 min. The most frequent at rush hour is Tram M4, every 3.2 minutes."}}, {"@type": "Question", "name": "Where do the timetables come from?", "acceptedAnswer": {"@type": "Answer", "text": "From the official VBB timetable in GTFS format (VBB Verkehrsverbund Berlin-Brandenburg GmbH, CC BY), downloaded on 6 October 2026 and valid until 12 December 2026. Times are those of Tuesday 6 October 2026, between 7:00 and 20:00."}}, {"@type": "Question", "name": "Which modes of transport are included?", "acceptedAnswer": {"@type": "Answer", "text": "All of them: U-Bahn, S-Bahn, tram, regional trains (RE, RB, FEX), buses and BVG ferries. Untick a mode under the map to see the city without it — for example only the rail network, or everything but buses."}}, {"@type": "Question", "name": "What do Day, Rush hour and Night mean?", "acceptedAnswer": {"@type": "Answer", "text": "Three slices of the same weekday timetable (Tuesday 6 October 2026): Day is 7:00–20:00, Rush hour 7:00–9:00, and Night 1:30–3:30 the following morning, when the U-Bahn and most of the S-Bahn have stopped and night buses and night trams take over. Waits are capped at 15 minutes by day and 30 minutes at night."}}, {"@type": "Question", "name": "What does the bike option do?", "acceptedAnswer": {"@type": "Answer", "text": "It replaces the walk to the first stop and from the last one (or the whole trip, when that is quicker) with a bike ride at 15 km/h, plus 2 minutes to unlock and park. Stations up to 6 km away are then worth reaching. Changes between lines are still on foot, and taking the bike along is assumed to be allowed."}}, {"@type": "Question", "name": "How are travel times calculated?", "acceptedAnswer": {"@type": "Answer", "text": "For each trip: walking to the stop at 4.5 km/h, waiting half of the time between two departures, the scheduled time between stops, and 1.5 minutes of walking for each change (plus a minute or so to reach underground and main-line platforms). The Spree, the Havel, the Dahme, the big canals and the lakes can only be crossed over a bridge. No real-time data or disruptions: this is the city “on paper”."}}, {"@type": "Question", "name": "Who made this map?", "acceptedAnswer": {"@type": "Answer", "text": "It adapts À portée de tram by Camille Roux (MIT licence) to Berlin, in English and with every mode of transport. The idea comes from Anthony Castrio's NYC Transit Time Cartogram, adapted to Paris by Jules Grandin (C'est encore loin ?)."}}]}]}</script>
+    <link rel="stylesheet" href="styles.css?v=23a5a2d5" />
   </head>
   <body>
-    <script id="city-config" type="application/json">{"slug": "berlin", "name": "Berlin", "dataVersion": "a569e556", "defaultFrom": {"lat": 52.52165, "lon": 13.41117, "label": "Alexanderplatz"}, "searchBbox": [52.33, 13.08, 52.68, 13.77]}</script>
+    <script id="city-config" type="application/json">{"slug": "berlin", "name": "Berlin", "dataVersion": "4196ebc7", "defaultFrom": {"lat": 52.52165, "lon": 13.41117, "label": "Alexanderplatz"}, "searchBbox": [52.33, 13.08, 52.68, 13.77]}</script>
     <header class="bar">
       <a class="bar-brand" href="./" aria-label="BerlInReach">Berl<span class="in">In</span>Reach</a>
       <nav class="bar-right" aria-label="Main navigation">
         <a href="#map">Map</a>
+        <a href="meet.html">Meet</a>
         <a href="#numbers">Numbers</a>
         <a href="#rankings">Rankings</a>
         <a href="#about">About</a>
@@ -53,7 +55,7 @@
       <div class="intro">
         <p class="lede">
           The city redrawn by how long it takes to get there. Pick a starting point and every corner of Berlin is
-          coloured by its travel time, computed from the official VBB timetable.
+          coloured by its travel time, by day, at rush hour or at night, computed from the official VBB timetable.
         </p>
         <form id="searchForm" class="search" role="search" autocomplete="off">
           <label class="visually-hidden" for="searchInput">Starting address</label>
@@ -61,6 +63,7 @@
           <button type="submit" class="button primary">Start here</button>
           <ul id="searchResults" class="search-results" hidden></ul>
         </form>
+        <p class="cross-link"><a href="meet.html">Meeting up? Find the fairest spot for up to five people →</a></p>
       </div>
 
       <ol class="steps" aria-label="How to use">
@@ -105,12 +108,24 @@
           </div>
 
           <div class="legend" aria-hidden="true">
+            <p id="legendTitle" class="legend-title">Travel time</p>
             <div id="legendBar" class="legend-bar"></div>
             <div class="legend-labels"><span>0</span><span id="legendMid"></span><span id="legendMax"></span></div>
           </div>
         </div>
 
         <div class="controls">
+          <div id="periodToggle" class="control-group segmented-control" role="group" aria-label="Time of day">
+            <span class="control-label">Time</span>
+            <button type="button" data-period="day" aria-pressed="true" title="Weekday, 7:00–20:00">Day</button>
+            <button type="button" data-period="rush" aria-pressed="false" title="Weekday, 7:00–9:00">Rush hour</button>
+            <button type="button" data-period="night" aria-pressed="false" title="Weekday night, 1:30–3:30">Night</button>
+          </div>
+          <div id="travelToggle" class="control-group segmented-control" role="group" aria-label="Getting to and from the stops">
+            <span class="control-label">To the stops</span>
+            <button type="button" data-travel="walk" aria-pressed="true">Walk</button>
+            <button type="button" data-travel="bike" aria-pressed="false" title="15 km/h, plus 2 min to unlock and park">Bike</button>
+          </div>
           <div id="modeToggles" class="control-group">
             <span class="control-label">Modes</span>
             <label class="pill-toggle"><input type="checkbox" value="ubahn" checked /><span class="mode-dot" style="background:#115D91"></span> U-Bahn</label>
@@ -141,6 +156,7 @@
         </div>
         <p id="reach" class="reach"></p>
       </section>
+
 
       <section id="numbers" class="section" aria-labelledby="stats-title">
         <p class="eyebrow">01</p>
@@ -311,10 +327,13 @@
         <details class="faq"><summary>How long does it take to cross Berlin by public transport?</summary><p>From the centre (Alexanderplatz), 10% of U-Bahn, S-Bahn, tram and train stations are less than 15 minutes away and 55% less than 30 minutes, walking and waiting included. The farthest one, Wendenschloß, takes about 67 minutes.</p></details>
         <details class="faq"><summary>How often do the U-Bahn and S-Bahn run?</summary><p>On a weekday between 7:00 and 20:00, the typical gap between two trains is U1: 10 min, U2: 4.4 min, U3: 5 min, U4: 6.7 min, U5: 4.9 min, U6: 4.6 min, U7: 5 min, U8: 5 min, U9: 4.3 min, S1: 9.7 min, S2: 10 min, S3: 10 min, S5: 10 min, S7: 10 min, S8: 20 min, S9: 20 min, S15: 10 min, S25: 20 min, S26: 20 min, S41: 5.3 min, S42: 5.3 min, S46: 19.7 min, S47: 20 min, S75: 10 min, S85: 20 min. The most frequent at rush hour is Tram M4, every 3.2 minutes.</p></details>
         <details class="faq"><summary>Where do the timetables come from?</summary><p>From the official VBB timetable in GTFS format (VBB Verkehrsverbund Berlin-Brandenburg GmbH, CC BY), downloaded on 6 October 2026 and valid until 12 December 2026. Times are those of Tuesday 6 October 2026, between 7:00 and 20:00.</p></details>
-        <details class="faq"><summary>Which modes of transport are included?</summary><p>All of them: U-Bahn, S-Bahn, tram, regional trains (RE, RB, FEX), buses and BVG ferries. Untick a mode under the map to see the city without it — for example only the rail network, or everything but buses. Waiting at rarely served stops is capped at 15 minutes.</p></details>
-        <details class="faq"><summary>How are travel times calculated?</summary><p>For each trip: walking to the stop at 4.5 km/h, waiting half of the time between two departures, the scheduled time between stops, and 1.5 minutes of walking for each change (plus a minute or so to reach underground and main-line platforms). The Spree, the Havel, the Dahme, the big canals and the lakes can only be crossed on foot over a bridge. No real-time data or disruptions: this is the city “on paper”.</p></details>
+        <details class="faq"><summary>Which modes of transport are included?</summary><p>All of them: U-Bahn, S-Bahn, tram, regional trains (RE, RB, FEX), buses and BVG ferries. Untick a mode under the map to see the city without it — for example only the rail network, or everything but buses.</p></details>
+        <details class="faq"><summary>What do Day, Rush hour and Night mean?</summary><p>Three slices of the same weekday timetable (Tuesday 6 October 2026): Day is 7:00–20:00, Rush hour 7:00–9:00, and Night 1:30–3:30 the following morning, when the U-Bahn and most of the S-Bahn have stopped and night buses and night trams take over. Waits are capped at 15 minutes by day and 30 minutes at night.</p></details>
+        <details class="faq"><summary>What does the bike option do?</summary><p>It replaces the walk to the first stop and from the last one (or the whole trip, when that is quicker) with a bike ride at 15 km/h, plus 2 minutes to unlock and park. Stations up to 6 km away are then worth reaching. Changes between lines are still on foot, and taking the bike along is assumed to be allowed.</p></details>
+        <details class="faq"><summary>How are travel times calculated?</summary><p>For each trip: walking to the stop at 4.5 km/h, waiting half of the time between two departures, the scheduled time between stops, and 1.5 minutes of walking for each change (plus a minute or so to reach underground and main-line platforms). The Spree, the Havel, the Dahme, the big canals and the lakes can only be crossed over a bridge. No real-time data or disruptions: this is the city “on paper”.</p></details>
         <details class="faq"><summary>Who made this map?</summary><p>It adapts <a href="https://tram.camilleroux.com/">À portée de tram</a> by <a href="https://www.camilleroux.com/">Camille Roux</a> (MIT licence) to Berlin, in English and with every mode of transport. The idea comes from Anthony Castrio's <a href="https://castrio.me/nyc/">NYC Transit Time Cartogram</a>, adapted to Paris by Jules Grandin (<a href="https://julesgrandin.github.io/paris-temps-transport/">C'est encore loin ?</a>).</p></details>
       </section>
+
     </main>
 
     <footer class="site-footer">
@@ -337,6 +356,6 @@
     </footer>
 
     <div id="toast" class="toast" role="status" hidden></div>
-    <script type="module" src="app.js?v=f9b57799"></script>
+    <script type="module" src="app.js?v=e6eacacc"></script>
   </body>
 </html>

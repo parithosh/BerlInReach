@@ -11,10 +11,16 @@ An English, all-modes adaptation for Berlin of [À portée de tram](https://tram
 
 Features: heatmap and 15/30/45/60-minute isochrones from a draggable start, fading out smoothly past the chosen scale
 and along the city limits; destination by click with the detailed route (lines, changes, walks); map coloured from the
-start or the destination; per-mode toggles (U-Bahn, S-Bahn, tram, regional train, bus, ferry); hovering a station
-shows its name, lines and travel time; colour-blind palette (viridis, on by default) and dark mode (follows the
-system, remembered per device); address search (Photon / OpenStreetMap) and station search; pan, zoom, fullscreen,
-geolocation, shareable links (`?from=lat,lon&to=lat,lon&modes=ubahn,sbahn&max=60&iso=15,30,45`).
+start or the destination; **time of day** (weekday daytime, rush hour, night); **walking or cycling** to and from the
+stops; per-mode toggles (U-Bahn, S-Bahn, tram, regional train, bus, ferry); hovering a station shows its name, lines
+and travel time; colour-blind palette (viridis, on by default) and dark mode (follows the system, remembered per
+device); address search (Photon / OpenStreetMap) and station search; pan, zoom, fullscreen, geolocation, shareable links
+(`?from=lat,lon&to=lat,lon&time=night&by=bike&modes=ubahn,sbahn&max=60&iso=15,30,45`).
+
+**Meeting planner** (`meet.html`): up to five people (click, search or geolocate to add, drag to move, double-click to
+remove). The map is coloured by the longest trip among them (“fairest”) or the average trip, hovering shows everyone's
+time to any point, and the three best stations at least 900 m apart are listed with each person's time. Links keep the
+group: `meet.html?p=lat,lon&p=lat,lon&objective=total&time=rush`.
 
 The visual style follows [ethlabs.org](https://ethlabs.org/): the Outfit typeface (self-hosted in `site/fonts/`),
 near-black ink on white, hairline rules, wide-tracked uppercase labels, square corners and a single red accent.
@@ -23,8 +29,8 @@ near-black ink on white, hairline rules, wide-tracked uppercase labels, square c
 
 ```bash
 python3 fetch_data.py      # download VBB GTFS, district boundaries, OSM water/parks/rivers/bridges into data/
-python3 build_data.py      # compute site/data/berlin.json and data/stats.json (~1–2 min)
-python3 build_pages.py     # render site/index.html from templates/index.html
+python3 build_data.py      # compute site/data/berlin*.json and data/stats.json (~3 min)
+python3 build_pages.py     # render site/index.html and site/meet.html from templates/
 python3 -m http.server 8000 --directory site
 ```
 
@@ -43,18 +49,23 @@ meant to be versioned; `data/manifest.json` records where and when each file was
 
 ## Model
 
-- Reference day: the most common service pattern among the upcoming, near-busiest Tuesdays and Thursdays of the feed;
-  times between 7:00 and 20:00.
+- Reference day: the most common service pattern among the upcoming, near-busiest Tuesdays and Thursdays of the feed.
+- Times of day, each with its own graph and grid (`site/data/berlin-{day,rush,night}.json`): daytime 7:00–20:00, rush
+  hour 7:00–9:00, night 1:30–3:30 the following morning (trips past 24:00 on the reference day and the next day's
+  trips before 5:00 are both read).
 - Lines: VBB `route_type` 400 → U-Bahn, 109 → S-Bahn, 900 → tram, 100/106 → regional train, 700/3 → bus,
   1000 → ferry. Route ids sharing a line name (VBB splits S1, S3…) are merged.
 - Stations: stops grouped by DHID station (`de:11000:900100003:…`); names cleaned (`S+U Alexanderplatz Bhf (Berlin)` →
   `S+U Alexanderplatz`).
-- Ride time between two stops = median scheduled time; wait = half the mean headway at the stop, between 1 and 15 min.
+- Ride time between two stops = median scheduled time; wait = half the mean headway at the stop, between 1 and 15 min
+  (30 min at night).
 - Graph: one node per (station, line) plus one street-level node per station. Changing lines costs 1.5 min of walking
   plus platform access (U-Bahn and S-Bahn 1 min, regional 1.5 min, ferry 0.5 min) and the wait; stations within 450 m
   are linked on foot.
-- Walking at 4.5 km/h in a straight line. The Spree, Havel, Dahme, Teltowkanal, Berlin-Spandauer Schifffahrtskanal and
-  the shores of lakes larger than 1 km² can only be crossed over a bridge (OSM), otherwise by transit.
+- Walking at 4.5 km/h in a straight line; with the bike option, the first and last legs (or the whole trip) are cycled
+  at 15 km/h plus 2 min to unlock and park, and stations up to 6 km away are considered. The Spree, Havel, Dahme,
+  Teltowkanal, Berlin-Spandauer Schifffahrtskanal and the shores of lakes larger than 1 km² can only be crossed over a
+  bridge (OSM), otherwise by transit.
 - The map is a 200 m grid over Berlin; each cell knows its nearest stops (and the nearest of each mode), so that every
   mode filter is computed in the browser with Dijkstra in a few milliseconds.
 
@@ -64,8 +75,11 @@ No real-time data, no disruptions: the city “on paper”.
 
 - `config.json`: sources, centre (Alexanderplatz), areas, rivers.
 - `fetch_data.py`, `build_data.py`, `build_pages.py`: pipeline above.
-- `templates/index.html`: page template (stats, rankings and FAQ are filled from `data/stats.json`).
-- `site/`: the static site (`index.html`, `app.js`, `styles.css`, `data/berlin.json`).
+- `templates/`: `base.html` (shell: head, top bar, footer), `map.html` (map and controls shared by both pages),
+  `index.html` and `meet.html` (page bodies; stats, rankings and FAQ are filled from `data/stats.json`).
+- `site/`: the static site. `core.js` holds the model, the map and the shared controls; `app.js` (one start) and
+  `meet.js` (meeting planner) are the two pages. `data/berlin.json` is the base (geometry, stations, walks) and
+  `data/berlin-{day,rush,night}.json` the timetable of each time of day.
 
 ## Licences
 

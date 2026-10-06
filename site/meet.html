@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Where to meet · BerlInReach</title>
+    <meta name="description" content="Where to meet in Berlin: add up to five people and find the station everyone reaches fastest by public transport, by day, at rush hour or at night." />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      // Theme before the first paint: the visitor's choice, else the system's (toggle in the top bar, core.js).
+      document.documentElement.dataset.theme =
+        localStorage.getItem("theme") || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    </script>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="fonts/outfit-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="modulepreload" href="core.js?v=dccdf651" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:site_name" content="BerlInReach" />
+    <meta property="og:title" content="Where to meet · BerlInReach" />
+    <meta property="og:description" content="Where to meet in Berlin: add up to five people and find the station everyone reaches fastest by public transport, by day, at rush hour or at night." />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Where to meet · BerlInReach" />
+    <meta name="twitter:description" content="Where to meet in Berlin: add up to five people and find the station everyone reaches fastest by public transport, by day, at rush hour or at night." />
+    <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "BerlInReach: where to meet", "description": "Where to meet in Berlin: add up to five people and find the station everyone reaches fastest by public transport, by day, at rush hour or at night.", "inLanguage": "en", "applicationCategory": "TravelApplication", "operatingSystem": "Web", "isAccessibleForFree": true, "spatialCoverage": {"@type": "Place", "name": "Berlin"}, "isBasedOn": ["https://tram.camilleroux.com/", "https://castrio.me/nyc/"]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How is the best spot chosen?", "acceptedAnswer": {"@type": "Answer", "text": "For every U-Bahn, S-Bahn, tram and train station in Berlin, the travel time from each person is computed with the same model as the main map. “Fairest” ranks stations by the longest of those trips, so nobody travels much longer than the others; “Fastest on average” ranks them by the average trip, which can leave one person with a long ride. The three best stations at least 900 m apart are listed."}}, {"@type": "Question", "name": "What does the colour show?", "acceptedAnswer": {"@type": "Answer", "text": "For each point of the city, the longest trip anyone in the group would make to get there (or the average trip, with “Fastest on average”). Hover anywhere to see each person's time."}}, {"@type": "Question", "name": "How do I add, move or remove people?", "acceptedAnswer": {"@type": "Answer", "text": "Click the map or search for an address to add someone, up to five. Drag a marker to move it, double-click it (or use Remove in the list) to take it away. The link in the address bar keeps everyone: share it with the group."}}]}]}</script>
+    <link rel="stylesheet" href="styles.css?v=23a5a2d5" />
+  </head>
+  <body>
+    <script id="city-config" type="application/json">{"slug": "berlin", "name": "Berlin", "dataVersion": "4196ebc7", "defaultFrom": {"lat": 52.52165, "lon": 13.41117, "label": "Alexanderplatz"}, "searchBbox": [52.33, 13.08, 52.68, 13.77]}</script>
+    <header class="bar">
+      <a class="bar-brand" href="./" aria-label="BerlInReach">Berl<span class="in">In</span>Reach</a>
+      <nav class="bar-right" aria-label="Main navigation">
+        <a href="./">Map</a>
+        <a href="meet.html">Meet</a>
+        <a href="#about">About</a>
+        <button id="themeToggle" type="button" class="bar-button theme-toggle" aria-label="Switch to dark mode">
+          <svg class="theme-icon moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z" /></svg>
+          <svg class="theme-icon sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8" /></svg>
+        </button>
+      </nav>
+    </header>
+
+    <main class="page">
+      <section class="hero hero-small">
+        <div class="hero-text">
+          <p class="tagline">Berl<span class="in">In</span>Reach · Meeting planner</p>
+          <h1 class="page-title">Where to meet</h1>
+        </div>
+        <p class="byline">For Berlin by <a href="https://github.com/parithosh">Parithosh</a></p>
+      </section>
+
+      <div class="intro">
+        <p class="lede">
+          Add up to five people. The map is coloured by the longest trip anyone has to make to get there, and the
+          stations where everyone arrives soonest are listed, by day, at rush hour or at night.
+        </p>
+        <form id="searchForm" class="search" role="search" autocomplete="off">
+          <label class="visually-hidden" for="searchInput">Add someone by address</label>
+          <input id="searchInput" type="search" placeholder="Add someone: an address or station, e.g. Brandenburger Tor" />
+          <button type="submit" class="button primary">Add</button>
+          <ul id="searchResults" class="search-results" hidden></ul>
+        </form>
+        <p class="cross-link"><a href="./">← Back to the travel time map from one place</a></p>
+      </div>
+
+      <section id="map" class="map-card" aria-label="Travel time map">
+        <noscript>
+          <p class="noscript">This interactive map needs JavaScript to compute travel times. Please enable it.</p>
+        </noscript>
+        <div id="mapStage" class="map-stage">
+          <canvas id="mapCanvas"></canvas>
+          <div id="mapTooltip" class="map-tooltip" role="tooltip" hidden></div>
+
+          <aside id="meetPanel" class="trip-panel meet-panel" aria-live="polite">
+            <p class="trip-eyebrow">People</p>
+            <ul id="peopleList" class="people-list"></ul>
+            <p id="peopleHint" class="trip-hint">Loading the network…</p>
+            <div id="objective" class="segmented" role="group" aria-label="What makes a good spot">
+              <span>Meet at the</span>
+              <button type="button" data-objective="fair" aria-pressed="true" title="Smallest longest trip">Fairest spot</button>
+              <button type="button" data-objective="total" aria-pressed="false" title="Smallest average trip">Fastest on average</button>
+            </div>
+            <div id="spotsBlock" class="spots-block" hidden>
+              <p class="trip-eyebrow">Best stations</p>
+              <ol id="spotList" class="spot-list"></ol>
+            </div>
+          </aside>
+
+          <div class="map-buttons">
+            <button id="zoomIn" type="button" class="icon-button" aria-label="Zoom in">+</button>
+            <button id="zoomOut" type="button" class="icon-button" aria-label="Zoom out">−</button>
+            <button id="recenter" type="button" class="icon-button" aria-label="Recentre the map">⌖</button>
+            <button id="fullscreen" type="button" class="icon-button" aria-label="Fullscreen">⤢</button>
+          </div>
+
+          <div class="legend" aria-hidden="true">
+            <p id="legendTitle" class="legend-title">Longest trip among everyone</p>
+            <div id="legendBar" class="legend-bar"></div>
+            <div class="legend-labels"><span>0</span><span id="legendMid"></span><span id="legendMax"></span></div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <div id="periodToggle" class="control-group segmented-control" role="group" aria-label="Time of day">
+            <span class="control-label">Time</span>
+            <button type="button" data-period="day" aria-pressed="true" title="Weekday, 7:00–20:00">Day</button>
+            <button type="button" data-period="rush" aria-pressed="false" title="Weekday, 7:00–9:00">Rush hour</button>
+            <button type="button" data-period="night" aria-pressed="false" title="Weekday night, 1:30–3:30">Night</button>
+          </div>
+          <div id="travelToggle" class="control-group segmented-control" role="group" aria-label="Getting to and from the stops">
+            <span class="control-label">To the stops</span>
+            <button type="button" data-travel="walk" aria-pressed="true">Walk</button>
+            <button type="button" data-travel="bike" aria-pressed="false" title="15 km/h, plus 2 min to unlock and park">Bike</button>
+          </div>
+          <div id="modeToggles" class="control-group">
+            <span class="control-label">Modes</span>
+            <label class="pill-toggle"><input type="checkbox" value="ubahn" checked /><span class="mode-dot" style="background:#115D91"></span> U-Bahn</label>
+            <label class="pill-toggle"><input type="checkbox" value="sbahn" checked /><span class="mode-dot" style="background:#008D4F"></span> S-Bahn</label>
+            <label class="pill-toggle"><input type="checkbox" value="tram" checked /><span class="mode-dot" style="background:#BE1414"></span> Tram</label>
+            <label class="pill-toggle"><input type="checkbox" value="regional" checked /><span class="mode-dot" style="background:#E2001A"></span> Regional train</label>
+            <label class="pill-toggle"><input type="checkbox" value="bus" checked /><span class="mode-dot" style="background:#A5027D"></span> Bus</label>
+            <label class="pill-toggle"><input type="checkbox" value="ferry" checked /><span class="mode-dot" style="background:#0080BA"></span> Ferry</label>
+          </div>
+          <div id="isoToggles" class="control-group">
+            <span class="control-label">Contours</span>
+            <label class="pill-toggle"><input type="checkbox" value="15" checked /> 15 min</label>
+            <label class="pill-toggle"><input type="checkbox" value="30" checked /> 30 min</label>
+            <label class="pill-toggle"><input type="checkbox" value="45" checked /> 45 min</label>
+            <label class="pill-toggle"><input type="checkbox" value="60" /> 60 min</label>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="maxRange">Scale</label>
+            <input id="maxRange" type="range" min="20" max="120" step="5" value="60" />
+            <output id="maxValue" for="maxRange">60 min</output>
+            <label class="pill-toggle" title="Yellow (close) to purple (far): readable with any colour vision"><input id="paletteToggle" type="checkbox" checked /> Colour-blind palette</label>
+          </div>
+          <div class="control-group actions">
+            <button id="locate" type="button" class="button">Add my location</button>
+            <button id="share" type="button" class="button primary">Share</button>
+          </div>
+        </div>
+        <p id="reach" class="reach"></p>
+      </section>
+
+
+      <section id="about" class="section" aria-labelledby="faq-title">
+        <p class="eyebrow">How it works</p>
+        <h2 id="faq-title">Questions</h2>
+        <details class="faq"><summary>How is the best spot chosen?</summary><p>For every U-Bahn, S-Bahn, tram and train station in Berlin, the travel time from each person is computed with the same model as the main map. “Fairest” ranks stations by the longest of those trips, so nobody travels much longer than the others; “Fastest on average” ranks them by the average trip, which can leave one person with a long ride. The three best stations at least 900 m apart are listed.</p></details>
+        <details class="faq"><summary>What does the colour show?</summary><p>For each point of the city, the longest trip anyone in the group would make to get there (or the average trip, with “Fastest on average”). Hover anywhere to see each person&#x27;s time.</p></details>
+        <details class="faq"><summary>How do I add, move or remove people?</summary><p>Click the map or search for an address to add someone, up to five. Drag a marker to move it, double-click it (or use Remove in the list) to take it away. The link in the address bar keeps everyone: share it with the group.</p></details>
+      </section>
+
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-brand">Berl<span class="in">In</span>Reach <span class="footer-byline">For Berlin by <a href="https://github.com/parithosh">Parithosh</a></span></p>
+        <p>
+          An English, all-modes adaptation for Berlin of <a href="https://tram.camilleroux.com/">À portée de tram</a>
+          by <a href="https://www.camilleroux.com/">Camille Roux</a>, itself inspired by Anthony Castrio's
+          <a href="https://castrio.me/nyc/">NYC Transit Time Cartogram</a> and Jules Grandin's
+          <a href="https://julesgrandin.github.io/paris-temps-transport/">Paris map</a>.
+        </p>
+        <p class="footer-credits">
+          Timetables: <a href="https://daten.berlin.de/datensaetze/vbb-fahrplandaten-via-gtfs">VBB GTFS</a> (VBB Verkehrsverbund Berlin-Brandenburg GmbH, <a href="https://opendefinition.org/licenses/cc-by/">CC BY</a>),
+          downloaded 6 October 2026. District boundaries: <a href="https://daten.odis-berlin.de/de/dataset/bezirksgrenzen/">Geoportal Berlin</a> (dl-de/zero-2-0).
+          Base map © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a> (ODbL).
+          Address search: <a href="https://photon.komoot.io/">Photon</a> by Komoot, on OpenStreetMap data.
+          Typeface: <a href="https://github.com/Outfitio/Outfit-Fonts">Outfit</a> (SIL OFL). Code under the MIT licence.
+        </p>
+      </div>
+    </footer>
+
+    <div id="toast" class="toast" role="status" hidden></div>
+    <script type="module" src="meet.js?v=e861cbb7"></script>
+  </body>
+</html>

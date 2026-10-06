@@ -1,0 +1,59 @@
+      <section id="map" class="map-card" aria-label="Travel time map">
+        <noscript>
+          <p class="noscript">This interactive map needs JavaScript to compute travel times. Please enable it.</p>
+        </noscript>
+        <div id="mapStage" class="map-stage">
+          <canvas id="mapCanvas"></canvas>
+          <div id="mapTooltip" class="map-tooltip" role="tooltip" hidden></div>
+
+${panel}
+
+          <div class="map-buttons">
+            <button id="zoomIn" type="button" class="icon-button" aria-label="Zoom in">+</button>
+            <button id="zoomOut" type="button" class="icon-button" aria-label="Zoom out">−</button>
+            <button id="recenter" type="button" class="icon-button" aria-label="Recentre the map">⌖</button>
+            <button id="fullscreen" type="button" class="icon-button" aria-label="Fullscreen">⤢</button>
+          </div>
+
+          <div class="legend" aria-hidden="true">
+            <p id="legendTitle" class="legend-title">${legend_title}</p>
+            <div id="legendBar" class="legend-bar"></div>
+            <div class="legend-labels"><span>0</span><span id="legendMid"></span><span id="legendMax"></span></div>
+          </div>
+        </div>
+
+        <div class="controls">
+          <div id="periodToggle" class="control-group segmented-control" role="group" aria-label="Time of day">
+            <span class="control-label">Time</span>
+            <button type="button" data-period="day" aria-pressed="true" title="Weekday, 7:00–20:00">Day</button>
+            <button type="button" data-period="rush" aria-pressed="false" title="Weekday, 7:00–9:00">Rush hour</button>
+            <button type="button" data-period="night" aria-pressed="false" title="Weekday night, 1:30–3:30">Night</button>
+          </div>
+          <div id="travelToggle" class="control-group segmented-control" role="group" aria-label="Getting to and from the stops">
+            <span class="control-label">To the stops</span>
+            <button type="button" data-travel="walk" aria-pressed="true">Walk</button>
+            <button type="button" data-travel="bike" aria-pressed="false" title="15 km/h, plus 2 min to unlock and park">Bike</button>
+          </div>
+          <div id="modeToggles" class="control-group">
+            <span class="control-label">Modes</span>
+${mode_toggles}
+          </div>
+          <div id="isoToggles" class="control-group">
+            <span class="control-label">Contours</span>
+            <label class="pill-toggle"><input type="checkbox" value="15" checked /> 15 min</label>
+            <label class="pill-toggle"><input type="checkbox" value="30" checked /> 30 min</label>
+            <label class="pill-toggle"><input type="checkbox" value="45" checked /> 45 min</label>
+            <label class="pill-toggle"><input type="checkbox" value="60" /> 60 min</label>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="maxRange">Scale</label>
+            <input id="maxRange" type="range" min="20" max="120" step="5" value="60" />
+            <output id="maxValue" for="maxRange">60 min</output>
+            <label class="pill-toggle" title="Yellow (close) to purple (far): readable with any colour vision"><input id="paletteToggle" type="checkbox" checked /> Colour-blind palette</label>
+          </div>
+          <div class="control-group actions">
+${actions}
+          </div>
+        </div>
+        <p id="reach" class="reach"></p>
+      </section>

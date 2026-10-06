@@ -37,9 +37,17 @@ TRANSFER_WALK = 1.5
 INTER_STATION_WALK_RADIUS = 450.0
 MIN_RIDE_MINUTES = 0.4
 MIN_WAIT = 1.0
-MAX_WAIT = 15.0
-SERVICE_WINDOW = (7 * 3600, 20 * 3600)
-PEAK_WINDOW = (7 * 3600, 9 * 3600)
+# Times of day modelled, on the reference weekday (seconds after midnight of its service day). The night runs from
+# 1:30 to 3:30 the following morning, when the U-Bahn and S-Bahn have stopped on weekdays and night buses take over:
+# trips after midnight belong either to the reference day (times past 24:00) or to the next day's service (times
+# from 0:00), so both are read. Waits are capped higher at night, when 30-minute night-bus headways are the norm.
+PERIODS = {
+    "day": {"window": (7 * 3600, 20 * 3600), "maxWait": 15.0},
+    "rush": {"window": (7 * 3600, 9 * 3600), "maxWait": 15.0},
+    "night": {"window": (25 * 3600 + 1800, 27 * 3600 + 1800), "maxWait": 30.0},
+}
+NEXT_DAY_CUTOFF = 5 * 3600  # next-day trips are only needed for the small hours
+PEAK_WINDOW = PERIODS["rush"]["window"]
 REFERENCE_HORIZON_DAYS = 60
 
 # Stations looked at around a departure point (also used by site/app.js): the nearest ones, plus a few of each mode.
@@ -519,10 +527,14 @@ def extract_network(config: dict):
     all_trips = [row for row in read_gtfs_table(archive, "trips.txt") if route_modes.get(row["route_id"])]
     reference_date = pick_reference_date(services, Counter(row["service_id"] for row in all_trips))
     weekday_services = services[reference_date]
-    trips = {row["trip_id"]: row for row in all_trips if row["service_id"] in weekday_services}
+    next_services = services.get(reference_date + timedelta(days=1), frozenset())
+    # Keys: trip_id for the reference day, (trip_id, 1) for the next day's small hours (times shifted by 24 h).
+    trips: Dict[object, dict] = {row["trip_id"]: row for row in all_trips if row["service_id"] in weekday_services}
+    next_trips = {row["trip_id"]: row for row in all_trips if row["service_id"] in next_services}
 
-    # Stream stop_times.txt (300 MB): keep the reference day's trips only.
-    stop_times: Dict[str, List[Tuple[int, str, int, int]]] = defaultdict(list)
+    # Stream stop_times.txt (300 MB): the reference day's trips, and the start of the next day's.
+    day = 24 * 3600
+    stop_times: Dict[object, List[Tuple[int, str, int, int]]] = defaultdict(list)
     with archive.open("stop_times.txt") as handle:
         reader = csv.reader(io.TextIOWrapper(handle, encoding="utf-8-sig"))
         header = next(reader)
@@ -530,9 +542,17 @@ def extract_network(config: dict):
         arr_col, dep_col = header.index("arrival_time"), header.index("departure_time")
         for row in reader:
             trip_id = row[trip_col]
-            if trip_id not in trips or not row[arr_col]:
+            today, tomorrow = trip_id in trips, trip_id in next_trips
+            if not (today or tomorrow) or not row[arr_col]:
                 continue
-            stop_times[trip_id].append((int(row[seq_col]), row[stop_col], parse_time(row[arr_col]), parse_time(row[dep_col])))
+            sequence, stop_id = int(row[seq_col]), row[stop_col]
+            arrival, departure = parse_time(row[arr_col]), parse_time(row[dep_col])
+            if today:
+                stop_times[trip_id].append((sequence, stop_id, arrival, departure))
+            if tomorrow and departure < NEXT_DAY_CUTOFF:
+                stop_times[(trip_id, 1)].append((sequence, stop_id, arrival + day, departure + day))
+    for trip_id, row in next_trips.items():
+        trips[(trip_id, 1)] = row
 
     # Group the stops of each station (DHID); a station's name comes from its parent station when there is one.
     used_stop_ids = {stop_id for seq in stop_times.values() for _, stop_id, _, _ in seq if stop_id in kept_stops}
@@ -578,7 +598,7 @@ def extract_network(config: dict):
             line["text"] = f"#{text.upper()}" if text else ""
         route_line[route_id] = line_index[key]
 
-    def sequences(times: Dict[str, List[Tuple[int, str, int, int]]], trip_rows: Dict[str, dict]):
+    def sequences(times: Dict[object, List[Tuple[int, str, int, int]]], trip_rows: Dict[object, dict]):
         """Per trip: its line, and the runs of consecutive stops inside the area, as (station, arrival, departure)."""
         for trip_id, sequence in times.items():
             sequence.sort()
@@ -590,39 +610,55 @@ def extract_network(config: dict):
                     runs.append([])
             yield trip_id, route_line[trip_rows[trip_id]["route_id"]], [run for run in runs if len(run) >= 2]
 
-    ride_samples: Dict[Tuple[int, int, int], List[float]] = defaultdict(list)
-    departures: Dict[Tuple[int, int], Counter] = defaultdict(Counter)
+    period_samples = {name: defaultdict(list) for name in PERIODS}
+    period_departures = {name: defaultdict(Counter) for name in PERIODS}
+    period_lines = {name: defaultdict(set) for name in PERIODS}  # station → lines running there in the window
     peak_departures: Dict[Tuple[int, int, str], int] = Counter()
     daily_departures: Counter = Counter()  # per station, rail lines only, whole day
     trips_per_mode: Counter = Counter()
     longest: Dict[int, Tuple[float, int, int]] = {}
-    window_start, window_end = SERVICE_WINDOW
-    for trip_id, line, runs in sequences(stop_times, trips):
+    for key, line, runs in sequences(stop_times, trips):
         if not runs:
             continue
-        trips_per_mode[lines[line]["mode"]] += 1
-        direction = trips[trip_id].get("direction_id") or "0"
+        # Whole-day figures (page statistics) come from the reference day only, not the next day's small hours.
+        today = not isinstance(key, tuple)
+        if today:
+            trips_per_mode[lines[line]["mode"]] += 1
+        direction = trips[key].get("direction_id") or "0"
         for run in runs:
             duration = (run[-1][1] - run[0][2]) / 60.0
-            if duration > longest.get(line, (0,))[0]:
+            if today and duration > longest.get(line, (0,))[0]:
                 longest[line] = (duration, run[0][0], run[-1][0])
             for (a, _, dep_a), (b, arr_b, _) in zip(run, run[1:]):
-                stations[a]["lines"].add(line)
-                stations[b]["lines"].add(line)
-                if lines[line]["mode"] in RAIL_MODES:
-                    daily_departures[a] += 1
-                if PEAK_WINDOW[0] <= dep_a < PEAK_WINDOW[1]:
-                    peak_departures[(a, line, direction)] += 1
-                if a == b or not window_start <= dep_a < window_end:
+                if today:
+                    stations[a]["lines"].add(line)
+                    stations[b]["lines"].add(line)
+                    if lines[line]["mode"] in RAIL_MODES:
+                        daily_departures[a] += 1
+                    if PEAK_WINDOW[0] <= dep_a < PEAK_WINDOW[1]:
+                        peak_departures[(a, line, direction)] += 1
+                if a == b:
                     continue
-                ride_samples[(a, b, line)].append(max(0, arr_b - dep_a) / 60.0)
-                departures[(a, line)][direction] += 1
+                for name, spec in PERIODS.items():
+                    start, end = spec["window"]
+                    if start <= dep_a < end:
+                        period_samples[name][(a, b, line)].append(max(0, arr_b - dep_a) / 60.0)
+                        period_departures[name][(a, line)][direction] += 1
+                        period_lines[name][a].add(line)
+                        period_lines[name][b].add(line)
 
-    edges = {key: max(MIN_RIDE_MINUTES, statistics.median(samples)) for key, samples in ride_samples.items()}
-    window_minutes = (window_end - window_start) / 60.0
-    headways: Dict[Tuple[int, int], float] = {}
-    for key, per_direction in departures.items():
-        headways[key] = window_minutes / (sum(per_direction.values()) / len(per_direction))
+    periods = {}
+    for name, spec in PERIODS.items():
+        start, end = spec["window"]
+        window_minutes = (end - start) / 60.0
+        periods[name] = {
+            "edges": {key: max(MIN_RIDE_MINUTES, statistics.median(samples)) for key, samples in period_samples[name].items()},
+            "headways": {
+                key: window_minutes / (sum(per_direction.values()) / len(per_direction))
+                for key, per_direction in period_departures[name].items()
+            },
+            "lines": period_lines[name],
+        }
 
     rail_shapes: Dict[str, int] = {}
     for trip in trips.values():
@@ -636,7 +672,7 @@ def extract_network(config: dict):
         "tripsPerMode": trips_per_mode,
         "longest": longest,
     }
-    return archive, reference_date, stations, lines, edges, headways, rail_shapes, timetable
+    return archive, reference_date, stations, lines, periods, rail_shapes, timetable
 
 
 def line_geometry(archive: zipfile.ZipFile, rail_shapes: Dict[str, int], lines: List[dict], used_lines: Dict[int, int], box) -> List[dict]:
@@ -706,9 +742,12 @@ class Network:
         count = len(states) + len(stations)
         self.adjacency: List[List[Tuple[int, float]]] = [[] for _ in range(count)]
         self.station_states: List[List[int]] = [[] for _ in stations]
+        # Modes served at each station in this timetable (period), from its states.
+        self.station_modes: List[set] = [set() for _ in stations]
         offset = len(states)
         for index, (station, line, wait) in enumerate(states):
             self.station_states[station].append(index)
+            self.station_modes[station].add(lines[line]["mode"])
             access = MODE_ACCESS_MINUTES[lines[line]["mode"]]
             self.adjacency[index].append((offset + station, access / 2 + TRANSFER_WALK / 2))
             self.adjacency[offset + station].append((index, access / 2 + TRANSFER_WALK / 2 + wait))
@@ -723,13 +762,13 @@ class Network:
 
     def seeds(self, origin: Point, modes: set, rivers: Rivers) -> List[Tuple[int, float]]:
         """Stations reachable on foot from a departure point: the nearest ones, plus the nearest few of each mode."""
-        usable = [i for i, s in enumerate(self.stations) if s["modes"] & modes]
+        usable = [i for i in range(len(self.stations)) if self.station_modes[i] & modes]
         usable.sort(key=lambda i: dist(origin, self.stations[i]["point"]))
         taken, per_mode = [], Counter()
         for i in usable:
             if len(taken) >= ORIGIN_NEAREST_STATIONS and dist(origin, self.stations[i]["point"]) > ORIGIN_MAX_METERS:
                 break
-            station_modes = self.stations[i]["modes"] & modes
+            station_modes = self.station_modes[i] & modes
             if len(taken) < ORIGIN_NEAREST_STATIONS or any(per_mode[m] < ORIGIN_NEAREST_PER_MODE for m in station_modes):
                 taken.append(i)
                 per_mode.update(station_modes)
@@ -789,19 +828,27 @@ def main() -> None:
     LAT0 = config["lat0"]
 
     print("Reading the VBB timetable…")
-    archive, reference_date, raw_stations, raw_lines, edges, headways, rail_shapes, timetable = extract_network(config)
+    archive, reference_date, raw_stations, raw_lines, periods, rail_shapes, timetable = extract_network(config)
 
-    # Keep only the lines and stations actually served on the reference day inside the area.
-    served_lines = sorted({line for station in raw_stations for line in station["lines"]},
-                          key=lambda l: (MODES.index(raw_lines[l]["mode"]), len(raw_lines[l]["name"]), raw_lines[l]["name"]))
+    # Keep the lines and stations served on the reference day, or in one of the modelled time windows (night buses).
+    period_station_lines = {name: periods[name]["lines"] for name in PERIODS}
+    all_lines = {line for station in raw_stations for line in station["lines"]}
+    for by_station in period_station_lines.values():
+        for station_lines in by_station.values():
+            all_lines |= station_lines
+    served_lines = sorted(all_lines, key=lambda l: (MODES.index(raw_lines[l]["mode"]), len(raw_lines[l]["name"]), raw_lines[l]["name"]))
     used_lines = {old: new for new, old in enumerate(served_lines)}
     lines = []
     for old in served_lines:
         line = raw_lines[old]
         color = line["color"] or MODE_COLORS[line["mode"]]
         lines.append({"name": line["name"], "mode": line["mode"], "color": color, "text": line["text"] or contrast_text(color)})
-    kept_stations = [i for i, station in enumerate(raw_stations) if station["lines"]]
+    kept_stations = [
+        i for i, station in enumerate(raw_stations)
+        if station["lines"] or any(i in by_station for by_station in period_station_lines.values())
+    ]
     station_index = {old: new for new, old in enumerate(kept_stations)}
+    # "lines", "modes", "rail": the whole reference day (page statistics, rail station counts).
     stations = [
         {
             "name": raw_stations[old]["name"],
@@ -838,20 +885,6 @@ def main() -> None:
         cell = cell_of(station["point"])
         station["berlin"] = cell is not None and bool(land_mask[cell])
 
-    print("Graph…")
-    states: List[Tuple[int, int, float]] = []
-    state_of: Dict[Tuple[int, int], int] = {}
-    for index, station in enumerate(stations):
-        for line in station["lines"]:
-            state_of[(index, line)] = len(states)
-            old_key = (kept_stations[index], served_lines[line])
-            headway = headways.get(old_key)
-            wait = min(MAX_WAIT, max(MIN_WAIT, headway / 2)) if headway else MAX_WAIT
-            states.append((index, line, round(wait, 2)))
-    rides = []
-    for (a, b, line), minutes in sorted(edges.items()):
-        if a in station_index and b in station_index:
-            rides.append((state_of[(station_index[a], used_lines[line])], state_of[(station_index[b], used_lines[line])], round(minutes, 2)))
     points = [station["point"] for station in stations]
     index_all = StationIndex(points, range(len(points)))
     walks = []
@@ -862,17 +895,38 @@ def main() -> None:
             meters = rivers.walk(station["point"], points[j])
             if meters <= INTER_STATION_WALK_RADIUS:
                 walks.append((i, j, round(meters)))
-    network = Network(stations, lines, states, rides, walks)
+    land_cells = [
+        (row, col, (bounds[0] + (col + 0.5) * cell_w, bounds[1] + (row + 0.5) * cell_h))
+        for row in range(rows)
+        for col in range(cols)
+        if land_mask[row * cols + col] and not water_mask[row * cols + col]
+    ]
 
-    print("Grid…")
-    mode_indexes = {mode: StationIndex(points, [i for i, s in enumerate(stations) if mode in s["modes"]]) for mode in MODES}
-    cells = []
-    for row in range(rows):
-        for col in range(cols):
-            if not land_mask[row * cols + col] or water_mask[row * cols + col]:
-                continue
-            point = (bounds[0] + (col + 0.5) * cell_w, bounds[1] + (row + 0.5) * cell_h)
+    def build_period(name: str):
+        """States (station, line, wait), rides and grid cells of one time window."""
+        spec, data = PERIODS[name], periods[name]
+        states: List[Tuple[int, int, float]] = []
+        state_of: Dict[Tuple[int, int], int] = {}
+        for index, old in enumerate(kept_stations):
+            for line in sorted(used_lines[l] for l in data["lines"].get(old, ())):
+                headway = data["headways"].get((old, served_lines[line]))
+                # A terminus only sees arrivals: no headway, and no ride leaving from it.
+                wait = min(spec["maxWait"], max(MIN_WAIT, headway / 2)) if headway else spec["maxWait"]
+                state_of[(index, line)] = len(states)
+                states.append((index, line, round(wait, 2)))
+        rides = [
+            (state_of[(station_index[a], used_lines[line])], state_of[(station_index[b], used_lines[line])], round(minutes, 2))
+            for (a, b, line), minutes in sorted(data["edges"].items())
+        ]
 
+        # Each cell lists its nearest stations served in this window, plus the nearest few of each mode.
+        modes_at: Dict[int, set] = defaultdict(set)
+        for station, line, _ in states:
+            modes_at[station].add(lines[line]["mode"])
+        index_served = StationIndex(points, sorted(modes_at))
+        mode_indexes = {mode: StationIndex(points, [i for i, m in modes_at.items() if mode in m]) for mode in MODES}
+        cells = []
+        for row, col, point in land_cells:
             def reachable(index: StationIndex, count: int) -> List[Tuple[float, int]]:
                 found: List[Tuple[float, int]] = []
                 for straight, i in index.nearest(point, count * CELL_CANDIDATES):
@@ -884,7 +938,7 @@ def main() -> None:
                         found.sort()
                 return found[:count]
 
-            access = {i: meters for meters, i in reachable(index_all, CELL_NEAREST_STATIONS)}
+            access = {i: meters for meters, i in reachable(index_served, CELL_NEAREST_STATIONS)}
             for mode in MODES:
                 # A station of a mode is worth listing only within a sensible walk (beyond, the nearest stops win).
                 for meters, i in reachable(mode_indexes[mode], CELL_NEAREST_PER_MODE):
@@ -898,6 +952,26 @@ def main() -> None:
             for i, meters in sorted(access.items(), key=lambda item: item[1]):
                 entry += [i, round(meters)]
             cells.append(entry)
+        return states, rides, cells
+
+    output_dir = ROOT / "site" / "data"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    built = {}
+    for name in PERIODS:
+        print(f"Graph and grid: {name}…")
+        states, rides, cells = build_period(name)
+        built[name] = (states, rides)
+        path = output_dir / f"{config['slug']}-{name}.json"
+        payload = {
+            "period": name,
+            "states": [value for state in states for value in state],
+            "rides": [value for ride in rides for value in ride],
+            "cells": cells,
+        }
+        path.write_text(json.dumps(payload, separators=(",", ":"), ensure_ascii=False), encoding="utf-8")
+        active = Counter(lines[l]["mode"] for l in {line for _, line, _ in states})
+        print(f"  {path.relative_to(ROOT)}: {path.stat().st_size / 1_000_000:.2f} MB, {len(states)} states, "
+              f"{len(rides)} rides, {len(cells)} cells, lines {dict(active)}")
 
     print("Line geometry…")
     routes = line_geometry(archive, rail_shapes, raw_lines, used_lines, config["stopBbox"])
@@ -925,6 +999,7 @@ def main() -> None:
             "originPerMode": ORIGIN_NEAREST_PER_MODE,
             "originMaxMeters": ORIGIN_MAX_METERS,
             "maxBridgeWalkMeters": MAX_BRIDGE_WALK_METERS,
+            "periods": {name: {"window": list(spec["window"]), "maxWait": spec["maxWait"]} for name, spec in PERIODS.items()},
         },
         "districts": districts,
         "rivers": [[round_point(p) for p in line] for line in river_lines],
@@ -934,28 +1009,32 @@ def main() -> None:
         "routes": routes,
         "lines": lines,
         "stations": [
-            {"name": s["name"], "point": round_point(s["point"]), "lines": s["lines"], **({"berlin": 1} if s["berlin"] else {})}
+            {
+                "name": s["name"],
+                "point": round_point(s["point"]),
+                **({"berlin": 1} if s["berlin"] else {}),
+                **({"rail": 1} if s["rail"] else {}),
+            }
             for s in stations
         ],
-        "states": [value for state in states for value in state],
-        "rides": [value for ride in rides for value in ride],
         "walks": [value for walk in walks for value in walk],
-        "cells": cells,
     }
-    output_path = ROOT / "site" / "data" / f"{config['slug']}.json"
-    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path = output_dir / f"{config['slug']}.json"
     output_path.write_text(json.dumps(output, separators=(",", ":"), ensure_ascii=False), encoding="utf-8")
 
     print("Figures…")
-    stats = network_stats(config, reference_date, network, stations, lines, rivers, kept_stations, served_lines, headways, timetable, raw_stations)
+    day_states, day_rides = built["day"]
+    network = Network(stations, lines, day_states, day_rides, walks)
+    stats = network_stats(config, reference_date, network, stations, lines, rivers, kept_stations, served_lines,
+                          periods["day"]["headways"], timetable, raw_stations)
     stats_path = DATA / "stats.json"
     stats_path.write_text(json.dumps(stats, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     modes = Counter(line["mode"] for line in lines)
     print(
         f"Wrote {output_path.relative_to(ROOT)} ({output_path.stat().st_size / 1_000_000:.2f} MB, reference day {reference_date}, "
-        f"lines {dict(modes)}, {len(stations)} stations ({sum(s['rail'] for s in stations)} rail), {len(states)} states, "
-        f"{len(rides)} rides, {len(walks)} walks, {len(cells)} cells ({cols}×{rows}), {len(routes)} tracks, {len(bridges)} bridges)"
+        f"lines {dict(modes)}, {len(stations)} stations ({sum(s['rail'] for s in stations)} rail), {len(walks)} walks, "
+        f"{len(routes)} tracks, {len(bridges)} bridges)"
     )
     print(f"Wrote {stats_path.relative_to(ROOT)}")
 

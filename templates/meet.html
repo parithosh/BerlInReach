@@ -1,0 +1,29 @@
+      <section class="hero hero-small">
+        <div class="hero-text">
+          <p class="tagline">Berl<span class="in">In</span>Reach · Meeting planner</p>
+          <h1 class="page-title">Where to meet</h1>
+        </div>
+        <p class="byline">For ${name} by <a href="https://github.com/parithosh">Parithosh</a></p>
+      </section>
+
+      <div class="intro">
+        <p class="lede">
+          Add up to five people. The map is coloured by the longest trip anyone has to make to get there, and the
+          stations where everyone arrives soonest are listed, by day, at rush hour or at night.
+        </p>
+        <form id="searchForm" class="search" role="search" autocomplete="off">
+          <label class="visually-hidden" for="searchInput">Add someone by address</label>
+          <input id="searchInput" type="search" placeholder="Add someone: an address or station, e.g. ${search_example}" />
+          <button type="submit" class="button primary">Add</button>
+          <ul id="searchResults" class="search-results" hidden></ul>
+        </form>
+        <p class="cross-link"><a href="./">← Back to the travel time map from one place</a></p>
+      </div>
+
+${map}
+
+      <section id="about" class="section" aria-labelledby="faq-title">
+        <p class="eyebrow">How it works</p>
+        <h2 id="faq-title">Questions</h2>
+${faq}
+      </section>
