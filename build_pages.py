@@ -244,8 +244,6 @@ def main() -> None:
         line_tables=line_tables(stats),
         ranking_cards=ranking_cards(stats, lines),
         reference_day=long_date(stats["referenceDate"]),
-        within30=stats["within30"],
-        center=escape(stats["center"]),
         faq="\n".join(f'        <details class="faq"><summary>{escape(q)}</summary><p>{a}</p></details>' for q, a in faq),
         gtfs_dataset=config["gtfsDataset"],
         gtfs_attribution=escape(config["gtfsAttribution"]),

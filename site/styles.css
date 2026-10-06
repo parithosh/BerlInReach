@@ -121,8 +121,7 @@ strong {
 .segmented,
 .lines-table th,
 .lines-block summary,
-.steps strong,
-.hero-caption {
+.steps strong {
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
@@ -216,32 +215,36 @@ strong {
   font-size: 0.8rem;
 }
 
-.hero-figure {
+/* Theme toggle: a hairline moon in light mode (switch to dark), a sun in dark mode. */
+.theme-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-icon.sun,
+:root[data-theme="dark"] .theme-icon.moon {
+  display: none;
+}
+
+:root[data-theme="dark"] .theme-icon.sun {
+  display: block;
+}
+
+.bar-button.theme-toggle {
   display: flex;
-  flex: none;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 200px;
-  height: 200px;
-  margin: 0 clamp(2rem, 9vw, 9rem) -100px 0;
-  border: 1px solid var(--ink);
-  border-radius: 50%;
-  background: var(--bg);
-  text-align: center;
+  padding: 2px;
 }
 
-.hero-number {
-  font-size: 2.9rem;
-  font-weight: 300;
-  letter-spacing: -0.03em;
-  line-height: 1;
-}
-
-.hero-caption {
-  margin-top: 0.55rem;
-  font-size: 0.6rem;
-  line-height: 1.6;
+.bar-button.theme-toggle:hover {
+  opacity: 0.6;
+  text-decoration: none;
 }
 
 .intro {
@@ -1048,10 +1051,6 @@ output {
 /* --- Small screens ------------------------------------------------------------- */
 
 @media (max-width: 860px) {
-  .hero-figure {
-    display: none;
-  }
-
   .stat-grid {
     grid-template-columns: 1fr 1fr;
     row-gap: 1.6rem;

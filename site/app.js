@@ -1585,7 +1585,6 @@ const themeToggle = $("themeToggle");
 function applyTheme(name) {
   document.documentElement.dataset.theme = name;
   const dark = name === "dark";
-  themeToggle.textContent = dark ? "Light" : "Dark";
   themeToggle.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
   themeToggle.title = themeToggle.getAttribute("aria-label");
   document.querySelector('meta[name="theme-color"]')?.setAttribute("content", dark ? "#0e0e0e" : "#ffffff");
