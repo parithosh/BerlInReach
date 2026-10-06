@@ -216,6 +216,47 @@ strong {
   font-size: 0.8rem;
 }
 
+/* "For Berlin by Parithosh": bottom right of the hero, in the uppercase label style, just inside the turned-up rule. */
+.byline,
+.footer-byline {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.byline {
+  flex: none;
+  margin: 0 1.2rem 0 0;
+}
+
+.byline a,
+.footer-byline a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.byline a:hover,
+.footer-byline a:hover {
+  text-decoration: underline;
+}
+
+.footer-byline {
+  margin-left: 0.8rem;
+  font-size: 0.72rem;
+}
+
+@media (max-width: 720px) {
+  .hero {
+    flex-wrap: wrap;
+  }
+
+  .byline {
+    margin-top: -0.4rem;
+  }
+}
+
 /* Theme toggle: a hairline moon in light mode (switch to dark), a sun in dark mode. */
 .theme-icon {
   display: block;

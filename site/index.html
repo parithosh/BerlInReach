@@ -23,7 +23,7 @@
     <meta name="twitter:title" content="BerlInReach" />
     <meta name="twitter:description" content="Travel time map of Berlin: pick a starting point and the whole city is coloured by how long it takes to get there by U-Bahn, S-Bahn, tram, regional train, bus and ferry (VBB timetable)." />
     <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "WebApplication", "name": "BerlInReach", "description": "Travel time map of Berlin: pick a starting point and the whole city is coloured by how long it takes to get there by U-Bahn, S-Bahn, tram, regional train, bus and ferry (VBB timetable).", "inLanguage": "en", "applicationCategory": "TravelApplication", "operatingSystem": "Web", "isAccessibleForFree": true, "spatialCoverage": {"@type": "Place", "name": "Berlin"}, "isBasedOn": ["https://tram.camilleroux.com/", "https://castrio.me/nyc/"]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How long does it take to cross Berlin by public transport?", "acceptedAnswer": {"@type": "Answer", "text": "From the centre (Alexanderplatz), 10% of U-Bahn, S-Bahn, tram and train stations are less than 15 minutes away and 55% less than 30 minutes, walking and waiting included. The farthest one, Wendenschloß, takes about 67 minutes."}}, {"@type": "Question", "name": "How often do the U-Bahn and S-Bahn run?", "acceptedAnswer": {"@type": "Answer", "text": "On a weekday between 7:00 and 20:00, the typical gap between two trains is U1: 10 min, U2: 4.4 min, U3: 5 min, U4: 6.7 min, U5: 4.9 min, U6: 4.6 min, U7: 5 min, U8: 5 min, U9: 4.3 min, S1: 9.7 min, S2: 10 min, S3: 10 min, S5: 10 min, S7: 10 min, S8: 20 min, S9: 20 min, S15: 10 min, S25: 20 min, S26: 20 min, S41: 5.3 min, S42: 5.3 min, S46: 19.7 min, S47: 20 min, S75: 10 min, S85: 20 min. The most frequent at rush hour is Tram M4, every 3.2 minutes."}}, {"@type": "Question", "name": "Where do the timetables come from?", "acceptedAnswer": {"@type": "Answer", "text": "From the official VBB timetable in GTFS format (VBB Verkehrsverbund Berlin-Brandenburg GmbH, CC BY), downloaded on 6 October 2026 and valid until 12 December 2026. Times are those of Tuesday 6 October 2026, between 7:00 and 20:00."}}, {"@type": "Question", "name": "Which modes of transport are included?", "acceptedAnswer": {"@type": "Answer", "text": "All of them: U-Bahn, S-Bahn, tram, regional trains (RE, RB, FEX), buses and BVG ferries. Untick a mode under the map to see the city without it — for example only the rail network, or everything but buses. Waiting at rarely served stops is capped at 15 minutes."}}, {"@type": "Question", "name": "How are travel times calculated?", "acceptedAnswer": {"@type": "Answer", "text": "For each trip: walking to the stop at 4.5 km/h, waiting half of the time between two departures, the scheduled time between stops, and 1.5 minutes of walking for each change (plus a minute or so to reach underground and main-line platforms). The Spree, the Havel, the Dahme, the big canals and the lakes can only be crossed on foot over a bridge. No real-time data or disruptions: this is the city “on paper”."}}, {"@type": "Question", "name": "Who made this map?", "acceptedAnswer": {"@type": "Answer", "text": "It adapts À portée de tram by Camille Roux (MIT licence) to Berlin, in English and with every mode of transport. The idea comes from Anthony Castrio's NYC Transit Time Cartogram, adapted to Paris by Jules Grandin (C'est encore loin ?)."}}]}]}</script>
-    <link rel="stylesheet" href="styles.css?v=d9bcd3ff" />
+    <link rel="stylesheet" href="styles.css?v=8f025ae9" />
   </head>
   <body>
     <script id="city-config" type="application/json">{"slug": "berlin", "name": "Berlin", "dataVersion": "a569e556", "defaultFrom": {"lat": 52.52165, "lon": 13.41117, "label": "Alexanderplatz"}, "searchBbox": [52.33, 13.08, 52.68, 13.77]}</script>
@@ -47,6 +47,7 @@
           <h1 class="wordmark" aria-label="BerlInReach">Berl<span class="in">In</span>Reach</h1>
           <p class="tagline">Travel time across Berlin by U-Bahn, S-Bahn, tram, train, bus and ferry</p>
         </div>
+        <p class="byline">For Berlin by <a href="https://github.com/parithosh">Parithosh</a></p>
       </section>
 
       <div class="intro">
@@ -318,7 +319,7 @@
 
     <footer class="site-footer">
       <div class="footer-inner">
-        <p class="footer-brand">Berl<span class="in">In</span>Reach</p>
+        <p class="footer-brand">Berl<span class="in">In</span>Reach <span class="footer-byline">For Berlin by <a href="https://github.com/parithosh">Parithosh</a></span></p>
         <p>
           An English, all-modes adaptation for Berlin of <a href="https://tram.camilleroux.com/">À portée de tram</a>
           by <a href="https://www.camilleroux.com/">Camille Roux</a>, itself inspired by Anthony Castrio's
