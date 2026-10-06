@@ -12,9 +12,12 @@ An English, all-modes adaptation for Berlin of [À portée de tram](https://tram
 Features: heatmap and 15/30/45/60-minute isochrones from a draggable start, fading out smoothly past the chosen scale
 and along the city limits; destination by click with the detailed route (lines, changes, walks); map coloured from the
 start or the destination; per-mode toggles (U-Bahn, S-Bahn, tram, regional train, bus, ferry); hovering a station
-shows its name, lines and travel time; colour-blind palette (viridis) and dark mode (follows the system, remembered
-per device); address search (Photon / OpenStreetMap) and station search; pan, zoom, fullscreen, geolocation,
-shareable links (`?from=lat,lon&to=lat,lon&modes=ubahn,sbahn&max=60&iso=15,30,45`).
+shows its name, lines and travel time; colour-blind palette (viridis, on by default) and dark mode (follows the
+system, remembered per device); address search (Photon / OpenStreetMap) and station search; pan, zoom, fullscreen,
+geolocation, shareable links (`?from=lat,lon&to=lat,lon&modes=ubahn,sbahn&max=60&iso=15,30,45`).
+
+The visual style follows [ethlabs.org](https://ethlabs.org/): the Outfit typeface (self-hosted in `site/fonts/`),
+near-black ink on white, hairline rules, wide-tracked uppercase labels, square corners and a single red accent.
 
 ## Run
 
@@ -67,4 +70,5 @@ No real-time data, no disruptions: the city “on paper”.
 ## Licences
 
 - Code: MIT (see [LICENSE](LICENSE)).
+- Outfit typeface (`site/fonts/`): SIL Open Font License 1.1 (see `site/fonts/OFL.txt`).
 - Computed data (`site/data/berlin.json`): derived from OpenStreetMap (ODbL) and the VBB timetable (CC BY).

@@ -110,17 +110,19 @@ def ranking_cards(stats: dict, lines: list) -> str:
             f"            <ol>\n{entries}\n            </ol>\n            <span class=\"muted\">{note}</span>\n          </div>"
         )
 
-    medals = ["🥇", "🥈", "🥉", "4.", "5."]
+    def rank(i: int) -> str:
+        return f'<span class="rank">{i + 1:02d}</span>'
+
     frequent = [
-        f'{medals[i]} {badge(lines[item["line"]])} every <strong>{number(item["headway"])} min</strong>'
+        f'{rank(i)} {badge(lines[item["line"]])} every <strong>{number(item["headway"])} min</strong>'
         for i, item in enumerate(stats["frequent"][:5])
     ]
     busiest = [
-        f'{medals[i]} <strong>{escape(item["station"])}</strong> · {number(item["departures"])} departures'
+        f'{rank(i)} <strong>{escape(item["station"])}</strong> · {number(item["departures"])} departures'
         for i, item in enumerate(stats["busiest"][:5])
     ]
     longest = [
-        f'{medals[i]} {badge(lines[item["line"]])} <strong>{item["minutes"]} min</strong> · {escape(item["from"])} → {escape(item["to"])}'
+        f'{rank(i)} {badge(lines[item["line"]])} <strong>{item["minutes"]} min</strong> · {escape(item["from"])} → {escape(item["to"])}'
         for i, item in enumerate(stats["longest"][:5])
     ]
     return "\n".join(
@@ -242,6 +244,8 @@ def main() -> None:
         line_tables=line_tables(stats),
         ranking_cards=ranking_cards(stats, lines),
         reference_day=long_date(stats["referenceDate"]),
+        within30=stats["within30"],
+        center=escape(stats["center"]),
         faq="\n".join(f'        <details class="faq"><summary>{escape(q)}</summary><p>{a}</p></details>' for q, a in faq),
         gtfs_dataset=config["gtfsDataset"],
         gtfs_attribution=escape(config["gtfsAttribution"]),

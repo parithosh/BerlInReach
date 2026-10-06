@@ -59,46 +59,52 @@ const RIVER_BRIDGE_CELLS = 4; // 200 m cells: enough to span the Spree and the H
 const HEAT_EDGE_BLUR = 7;
 const HOVER_RADIUS = 9; // pixels around a drawn stop that count as hovering it
 
+// Monochrome base (after ethlabs.org): white, near-black ink, hairlines, one red accent for the destination.
+const FONT = '"Outfit", system-ui, -apple-system, "Segoe UI", sans-serif';
 const THEMES = {
   light: {
-    background: "#f1efe9",
-    land: "#e4e2dc",
-    water: "#bcd7e8",
-    park: "rgba(120, 180, 90, 0.18)",
-    districtLine: "rgba(255, 255, 255, 0.9)",
-    districtText: "rgba(40, 40, 40, 0.55)",
-    districtHalo: "rgba(255, 255, 255, 0.6)",
+    background: "#ffffff",
+    land: "#f2f2f0",
+    water: "#dde5ea",
+    park: "rgba(110, 150, 90, 0.10)",
+    districtLine: "rgba(17, 17, 17, 0.22)",
+    districtText: "rgba(17, 17, 17, 0.5)",
+    districtHalo: "rgba(255, 255, 255, 0.7)",
     contour: "#111111",
-    contourHalo: "rgba(255, 255, 255, 0.8)",
-    text: "#333333",
-    halo: "rgba(255, 255, 255, 0.92)",
+    contourHalo: "rgba(255, 255, 255, 0.75)",
+    text: "#111111",
+    halo: "rgba(255, 255, 255, 0.9)",
     stopFill: "#ffffff",
-    stopStroke: "#333333",
-    busStop: "rgba(60, 60, 60, 0.45)",
-    from: "#3aa70b",
-    to: "#111111",
+    stopStroke: "#111111",
+    busStop: "rgba(17, 17, 17, 0.4)",
+    from: "#111111",
+    fromText: "#ffffff",
+    to: "#e5392b",
     toText: "#ffffff",
-    heatAlpha: 0.78,
+    markerRing: "#ffffff",
+    heatAlpha: 0.74,
   },
   dark: {
-    background: "#121418",
-    land: "#23262c",
-    water: "#1b3346",
-    park: "rgba(110, 170, 90, 0.12)",
-    districtLine: "rgba(255, 255, 255, 0.16)",
-    districtText: "rgba(235, 235, 235, 0.5)",
+    background: "#0e0e0e",
+    land: "#1a1a1a",
+    water: "#18232b",
+    park: "rgba(140, 180, 120, 0.07)",
+    districtLine: "rgba(237, 237, 237, 0.18)",
+    districtText: "rgba(237, 237, 237, 0.5)",
     districtHalo: "rgba(0, 0, 0, 0.5)",
-    contour: "#f4f4f4",
-    contourHalo: "rgba(0, 0, 0, 0.65)",
-    text: "#e8e8e8",
-    halo: "rgba(18, 20, 24, 0.9)",
-    stopFill: "#1a1c20",
-    stopStroke: "#e8e8e8",
-    busStop: "rgba(220, 220, 220, 0.4)",
-    from: "#4cc21a",
-    to: "#f4f4f4",
-    toText: "#111111",
-    heatAlpha: 0.7,
+    contour: "#ededed",
+    contourHalo: "rgba(0, 0, 0, 0.6)",
+    text: "#ededed",
+    halo: "rgba(14, 14, 14, 0.9)",
+    stopFill: "#0e0e0e",
+    stopStroke: "#ededed",
+    busStop: "rgba(237, 237, 237, 0.35)",
+    from: "#ededed",
+    fromText: "#0e0e0e",
+    to: "#e5392b",
+    toText: "#ffffff",
+    markerRing: "#0e0e0e",
+    heatAlpha: 0.68,
   },
 };
 const ROUTE_WIDTH = { ubahn: 3, sbahn: 3, regional: 2.2, tram: 1.8, ferry: 1.8, bus: 1.2 };
@@ -129,7 +135,8 @@ const app = {
   grid: null,
   heatCanvas: document.createElement("canvas"),
   heatLayer: document.createElement("canvas"), // screen-sized, for the soft edge along the city limits
-  palette: localStorage.getItem("palette") === "colorblind" ? "colorblind" : "standard",
+  // The colour-blind palette is the default; visitors who switch it off keep the standard one on this device.
+  palette: localStorage.getItem("palette") === "standard" ? "standard" : "colorblind",
   hover: null, // { index, x, y } of the stop under the mouse
   drawnStops: [], // stops drawn in the last frame, in screen coordinates (hover targets)
   drag: null,
@@ -895,7 +902,7 @@ function drawIsochrones() {
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   for (const { text, at } of labels) {
-    drawHaloText(text, at[0], at[1], { font: "700 12px Inter, sans-serif", color: theme().contour, width: 5 });
+    drawHaloText(text, at[0], at[1], { font: `600 12px ${FONT}`, color: theme().contour, width: 5 });
   }
 }
 
@@ -960,7 +967,7 @@ function drawStops() {
     ctx.textBaseline = "middle";
     for (const { station, x, y, major } of shown) {
       if (!major && app.view.scale < STOP_LABEL_SCALE * 2) continue;
-      drawHaloText(station.name, x + 6, y, { font: `${major ? 600 : 500} 11px Inter, sans-serif`, color: colors.text });
+      drawHaloText(station.name, x + 6, y, { font: `${major ? 500 : 400} 11.5px ${FONT}`, color: colors.text });
     }
   }
   app.drawnStops = drawn;
@@ -980,40 +987,46 @@ function drawHover() {
 function drawDistrictNames() {
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  const font = `600 ${app.view.scale > app.view.fitScale * 2 ? 13 : 10.5}px Inter, sans-serif`;
+  const font = `400 ${app.view.scale > app.view.fitScale * 2 ? 12.5 : 10}px ${FONT}`;
+  // Wide tracking on uppercase labels, the ethlabs.org signature (ignored by browsers without canvas letterSpacing).
+  ctx.letterSpacing = "1.5px";
   for (const district of app.data.districts) {
     const [x, y] = project(district.label);
     if (x < 0 || y < 0 || x > app.size.width || y > app.size.height) continue;
     drawHaloText(district.name.toUpperCase(), x, y, { font, color: theme().districtText, halo: theme().districtHalo });
   }
+  ctx.letterSpacing = "0px";
 }
 
-function drawMarker(point, color, label, textColor = "#fff") {
+function drawMarker(point, color, label, textColor, ringColor) {
   const [x, y] = project(point);
+  // A hairline circle around a solid dot.
   ctx.beginPath();
-  ctx.arc(x, y, 15, 0, Math.PI * 2);
-  ctx.fillStyle = `${color}2e`;
-  ctx.fill();
+  ctx.arc(x, y, 14, 0, Math.PI * 2);
+  ctx.lineWidth = 1;
+  ctx.strokeStyle = color;
+  ctx.stroke();
   ctx.beginPath();
-  ctx.arc(x, y, 8, 0, Math.PI * 2);
+  ctx.arc(x, y, 6.5, 0, Math.PI * 2);
   ctx.fillStyle = color;
   ctx.fill();
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = "#fff";
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = ringColor;
   ctx.stroke();
   if (!label) return;
-  ctx.font = "700 12px Inter, sans-serif";
-  const width = ctx.measureText(label).width + 16;
+  ctx.font = `500 11px ${FONT}`;
+  ctx.letterSpacing = "1.2px";
+  const text = label.toUpperCase();
+  const width = ctx.measureText(text).width + 16;
   const left = clamp(x - width / 2, 6, app.size.width - width - 6);
-  const top = y - 42;
-  ctx.beginPath();
-  ctx.roundRect(left, top, width, 22, 7);
+  const top = y - 40;
   ctx.fillStyle = color;
-  ctx.fill();
+  ctx.fillRect(left, top, width, 21);
   ctx.fillStyle = textColor;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.fillText(label, left + width / 2, top + 11.5);
+  ctx.fillText(text, left + width / 2, top + 11);
+  ctx.letterSpacing = "0px";
 }
 
 /** The heatmap, with a soft edge along the city limits instead of a hard cut: drawn on a screen-sized layer, then
@@ -1083,9 +1096,9 @@ function render() {
   drawHover();
   if (app.to) {
     const minutes = app.solution ? formatMinutes(travelTo(app.solution, app.to.point).minutes) : null;
-    drawMarker(app.to.point, colors.to, app.heatFrom === "to" ? `Arrival · ${minutes}` : minutes, colors.toText);
+    drawMarker(app.to.point, colors.to, app.heatFrom === "to" ? `Arrival · ${minutes}` : minutes, colors.toText, colors.markerRing);
   }
-  if (app.from) drawMarker(app.from.point, colors.from, "Start");
+  if (app.from) drawMarker(app.from.point, colors.from, "Start", colors.fromText, colors.markerRing);
   positionTooltip();
 }
 
@@ -1572,10 +1585,10 @@ const themeToggle = $("themeToggle");
 function applyTheme(name) {
   document.documentElement.dataset.theme = name;
   const dark = name === "dark";
-  themeToggle.textContent = dark ? "☀️" : "🌙";
+  themeToggle.textContent = dark ? "Light" : "Dark";
   themeToggle.setAttribute("aria-label", dark ? "Switch to light mode" : "Switch to dark mode");
   themeToggle.title = themeToggle.getAttribute("aria-label");
-  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", dark ? "#121418" : "#3aa70b");
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", dark ? "#0e0e0e" : "#ffffff");
   requestRender();
 }
 
@@ -1588,6 +1601,8 @@ matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) =>
   if (!localStorage.getItem("theme")) applyTheme(event.matches ? "dark" : "light");
 });
 applyTheme(document.documentElement.dataset.theme === "dark" ? "dark" : "light");
+// Canvas text uses Outfit too: redraw once the web font has arrived.
+document.fonts?.ready.then(requestRender);
 
 $("swap").addEventListener("click", () => {
   if (!app.to) {
