@@ -1,4 +1,4 @@
-// BerlInReach core: network data, travel-time model, map rendering and the controls shared by every page.
+// KiezReach core: network data, travel-time model, map rendering and the controls shared by every page.
 // Adapted from "À portée de tram" by Camille Roux (https://github.com/camilleroux/montpellier-temps-transport, MIT).
 //
 // A page module (app.js: one start; meet.js: several people) calls start(page) with hooks:

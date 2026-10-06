@@ -1,4 +1,4 @@
-/* BerlInReach. Minimal monochrome style after ethlabs.org: Outfit, near-black ink on white, hairline rules,
+/* KiezReach. Minimal monochrome style after ethlabs.org: Outfit, near-black ink on white, hairline rules,
    wide-tracked uppercase labels, square corners, one red accent. Layout descended from "À portée de tram" (MIT). */
 
 /* Outfit (SIL Open Font License, fonts/OFL.txt), self-hosted: one variable file per subset, weights 300–700. */
@@ -205,9 +205,8 @@ strong {
   line-height: 0.92;
 }
 
-/* The pun, and the reason it reads: in Outfit a capital I and a lowercase l are the same bar, so "In" takes the
-   accent colour wherever the name is written. */
-.in {
+/* "Kiez" (Berlin for neighbourhood) takes the accent colour wherever the name is written. */
+.kiez {
   color: var(--accent);
 }
 

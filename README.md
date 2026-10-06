@@ -1,4 +1,4 @@
-# BerlInReach
+# KiezReach
 
 Interactive travel-time map of Berlin by public transport: pick a starting point and the whole city is coloured by how
 long it takes to get anywhere by **U-Bahn, S-Bahn, tram, regional train (RE/RB/FEX), bus and ferry**. Click anywhere

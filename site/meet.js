@@ -1,4 +1,4 @@
-// BerlInReach, meeting planner: up to five people, the city coloured by the longest (or average) trip among them,
+// KiezReach, meeting planner: up to five people, the city coloured by the longest (or average) trip among them,
 // and the stations where everyone gets fastest.
 
 import {

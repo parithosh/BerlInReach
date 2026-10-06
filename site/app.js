@@ -1,4 +1,4 @@
-// BerlInReach, main page: one start, an optional destination with its route, the city coloured by travel time.
+// KiezReach, main page: one start, an optional destination with its route, the city coloured by travel time.
 
 import {
   $,
